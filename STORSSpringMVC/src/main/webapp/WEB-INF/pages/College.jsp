@@ -65,8 +65,8 @@
 		</table>
 		<input type="submit" value="Save" name="operation">
 		<input type="reset" value="Reset">
-		<a href="/Test/College/search">CollegeList</a>
-		<a href="/Test/Welcome">Welcome</a>
+		<a href="/STORSSpringMVC/College/search">CollegeList</a>
+		<a href="/STORSSpringMVC/Welcome">Welcome</a>
 	</form:form>
 </body>
 </html>

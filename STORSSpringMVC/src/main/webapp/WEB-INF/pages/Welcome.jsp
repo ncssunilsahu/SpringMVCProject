@@ -6,9 +6,9 @@
 	${message}
 	<br>
 	<br>
-	<a href="/Test/College/display">College</a>
-	<a href="/Test/College/search">CollegeList</a>
-	<a href="/Test/Login/log?operation=Logout">Logout</a>
+	<a href="/STORSSpringMVC/College/display">College</a>
+	<a href="/STORSSpringMVC/College/search">CollegeList</a>
+	<a href="/STORSSpringMVC/Login/log?operation=Logout">Logout</a>
 </body>
 
 </html>
