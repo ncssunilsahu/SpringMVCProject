@@ -23,7 +23,7 @@
 		<b>Login</b>
 		<br>
 		<br>
-${form.message }
+${message}
 <br>
 		<table>
 			<tr>

@@ -27,6 +27,9 @@
 
 	<context:component-scan base-package="in.co.sunrays.proj1.ctl" />
 
+
+	<import resource="jasper-views.xml" />
+	
 	<tx:annotation-driven transaction-manager="hibernateTransactionManager" />
 	<!-- without tiles <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"> 
 		<property name="prefix"> <value>/WEB-INF/pages/</value> </property> <property 
@@ -40,6 +43,11 @@
 			</value>
 		</property>
 	</bean>
+
+
+
+
+
 	<bean id="tilesConfigurer"
 		class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
 		<property name="definitions">
@@ -47,6 +55,13 @@
 				<value>/WEB-INF/tiles.xml</value>
 			</list>
 		</property>
+	</bean>
+
+
+
+	<bean class="org.springframework.web.servlet.view.XmlViewResolver">
+		<property name="location" value="/WEB-INF/jasper-views.xml" />
+		<property name="order" value="0" />
 	</bean>
 
 
@@ -109,6 +124,7 @@
 		<property name="annotatedClasses">
 			<list>
 				<value>in.co.sunrays.proj1.dto.CollegeDTO</value>
+				<value>in.co.sunrays.proj1.dto.StudentDTO</value>
 			</list>
 		</property>
 	</bean>
@@ -121,8 +137,9 @@
 
 
 	<bean id="collegeService" class="in.co.sunrays.proj1.service.CollegeServiceSpringImpl"></bean>
+	<bean id="studentService" class="in.co.sunrays.proj1.service.StudentServiceSpringImpl"></bean>
 
 	<bean id="collegeDAO" class="in.co.sunrays.proj1.dao.CollegeDAOHibImpl"></bean>
-
+	<bean id="studentDAO" class="in.co.sunrays.proj1.dao.StudentDAOHibImpl"></bean>
 
 </beans>

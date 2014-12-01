@@ -21,9 +21,9 @@ import org.hibernate.annotations.GenericGenerator;
  * @URL www.sunrays.co.in
  */
 @Entity
-@Table(name = "st_college")
+@Table(name = "st_student")
 @org.hibernate.annotations.Entity(dynamicInsert = true, dynamicUpdate = true)
-public class CollegeDTO {
+public class StudentDTO extends BaseDTO {
 
 	/**
 	 * Non Business primary key
@@ -33,64 +33,67 @@ public class CollegeDTO {
 	@GeneratedValue(generator = "generator")
 	@Column(name = "ID", nullable = false, length = 20)
 	protected long id = 0;
+
 	/**
 	 * Contains USER ID who created this database record
 	 */
-
 	@Column(name = "CREATED_BY", length = 50)
 	protected String createdBy = null;
+
 	/**
 	 * Contains USER ID who modified this database record
 	 */
-
 	@Column(name = "MODIFIED_BY", length = 50)
 	protected String modifiedBy = null;
+
 	/**
 	 * Contains Created Timestamp of database record
 	 */
-
 	@Column(name = "CREATED_DATETIME")
 	protected Timestamp createdDatetime;
+
 	/**
 	 * Contains Modified Timestamp of database record
 	 */
-
 	@Column(name = "MODIFIED_DATETIME")
 	protected Timestamp modifiedDatetime;
 
 	/**
-	 * Name of College
+	 * First Name of Student
 	 */
-	@Column(name = "NAME", length = 100)
-	private String name = null;
-
+	@Column(name = "FIRST_NAME")
+	private String firstName;
 	/**
-	 * Address of College
+	 * Last Name of Student
 	 */
-	@Column(name = "ADDRESS", length = 255)
-	private String address = null;
-
+	@Column(name = "LAST_NAME")
+	private String lastName;
 	/**
-	 * State of College
+	 * Date of Birth of Student
 	 */
-	@Column(name = "STATE", length = 20)
-	private String state = null;
-
+	@Column(name = "DATE_OF_BIRTH")
+	private Date dob;
 	/**
-	 * City of College
+	 * Mobileno of Student
 	 */
-	@Column(name = "CITY", length = 50)
-	private String city = null;
-
+	@Column(name = "MOBILE_NO")
+	private String mobileNo;
 	/**
-	 * Phoneno of College
+	 * Email of Student
 	 */
-	@Column(name = "PHONE_NO", length = 15)
-	private String phoneNo = null;
-
+	@Column(name = "EMAIL")
+	private String email;
 	/**
-	 * accessor
+	 * CollegeId of Student
 	 */
+
+	@Column(name = "COLLEGE_ID")
+	private long collegeId;
+	/**
+	 * College name of Student
+	 */
+	@Column(name = "COLLEGE_NAME")
+	private String collegeName;
 
 	public long getId() {
 		return id;
@@ -124,55 +127,68 @@ public class CollegeDTO {
 		this.createdDatetime = createdDatetime;
 	}
 
-	/**
-	 * accessor
-	 */
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	public String getState() {
-		return state;
-	}
-
-	public void setState(String state) {
-		this.state = state;
-	}
-
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	public String getPhoneNo() {
-		return phoneNo;
-	}
-
-	public void setPhoneNo(String phoneNo) {
-		this.phoneNo = phoneNo;
-	}
-
 	public Timestamp getModifiedDatetime() {
 		return modifiedDatetime;
 	}
 
 	public void setModifiedDatetime(Timestamp modifiedDatetime) {
 		this.modifiedDatetime = modifiedDatetime;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public Date getDob() {
+		return dob;
+	}
+
+	public void setDob(Date dob) {
+		this.dob = dob;
+	}
+
+	public String getMobileNo() {
+		return mobileNo;
+	}
+
+	public void setMobileNo(String mobileNo) {
+		this.mobileNo = mobileNo;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public long getCollegeId() {
+		return collegeId;
+	}
+
+	public void setCollegeId(long collegeId) {
+		this.collegeId = collegeId;
+	}
+
+	public String getCollegeName() {
+		return collegeName;
+	}
+
+	public void setCollegeName(String collegeName) {
+		this.collegeName = collegeName;
 	}
 
 }

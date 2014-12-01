@@ -23,6 +23,17 @@
 	</definition>
 
 
+	<definition name="Student" extends="BaseLayout">
+		<put-attribute name="menu" value="/WEB-INF/pages/Menu.jsp"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/pages/Student.jsp" />
+	</definition>
+
+
+	<definition name="StudentList" extends="BaseLayout">
+		<put-attribute name="menu" value="/WEB-INF/pages/Menu.jsp"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/pages/StudentList.jsp" />
+	</definition>
+
 	<definition name="Login" extends="BaseLayout">
 		<put-attribute name="menu" value="/WEB-INF/pages/Menu.jsp"></put-attribute>
 		<put-attribute name="body" value="/WEB-INF/pages/Login.jsp" />

@@ -21,7 +21,6 @@ public class WelcomeCtl {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String printWelcome(ModelMap model) {
-
 		model.addAttribute("message", "Hello Welcome");
 		return "Welcome";
 

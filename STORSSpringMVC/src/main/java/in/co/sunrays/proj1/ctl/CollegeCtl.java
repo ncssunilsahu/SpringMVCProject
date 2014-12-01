@@ -1,5 +1,9 @@
 package in.co.sunrays.proj1.ctl;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import in.co.sunrays.proj1.dto.CollegeDTO;
 import in.co.sunrays.proj1.exception.ApplicationException;
 import in.co.sunrays.proj1.exception.DuplicateRecordException;
@@ -7,6 +11,9 @@ import in.co.sunrays.proj1.form.CollegeForm;
 import in.co.sunrays.proj1.service.CollegeServiceInt;
 
 import javax.validation.Valid;
+
+import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -103,7 +110,6 @@ public class CollegeCtl extends BaseCtl {
 				} else {
 					Long id = service.add(dto);
 					System.out.println(id + " data inserted");
-					form.setId(id);
 					form.setMessage("Data is Added Successfully");
 				}
 			} else if (OP_DELETE.equalsIgnoreCase(form.getOperation())) {
@@ -176,5 +182,89 @@ public class CollegeCtl extends BaseCtl {
 		System.out.println("out CollegeCtl.searchList()");
 		return new ModelAndView("CollegeList", "form", form);
 	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "College/pdf")
+	public ModelAndView generatePdfReport(ModelAndView modelAndView) {
+
+		Map<String, Object> parameterMap = new HashMap<String, Object>();
+
+		List usersList;
+		try {
+			usersList = service.list();
+			JRDataSource JRdataSource = new JRBeanCollectionDataSource(
+					usersList);
+			parameterMap.put("datasource", JRdataSource);
+			// pdfReport bean has ben declared in the jasper-views.xml file
+			modelAndView = new ModelAndView("pdfReport", parameterMap);
+		} catch (ApplicationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return modelAndView;
+
+	}// generatePdfReport
+
+	@RequestMapping(method = RequestMethod.GET, value = "College/xls")
+	public ModelAndView generateXLSReport(ModelAndView modelAndView) {
+
+		Map<String, Object> parameterMap = new HashMap<String, Object>();
+
+		List usersList;
+		try {
+			usersList = service.list();
+			JRDataSource JRdataSource = new JRBeanCollectionDataSource(
+					usersList);
+			parameterMap.put("datasource", JRdataSource);
+			// pdfReport bean has ben declared in the jasper-views.xml file
+			modelAndView = new ModelAndView("xlsReport", parameterMap);
+		} catch (ApplicationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return modelAndView;
+
+	}// generatePdfReport
+
+	@RequestMapping(method = RequestMethod.GET, value = "College/csv")
+	public ModelAndView generateCSVReport(ModelAndView modelAndView) {
+
+		Map<String, Object> parameterMap = new HashMap<String, Object>();
+
+		List usersList;
+		try {
+			usersList = service.list();
+			JRDataSource JRdataSource = new JRBeanCollectionDataSource(
+					usersList);
+			parameterMap.put("datasource", JRdataSource);
+			// pdfReport bean has ben declared in the jasper-views.xml file
+			modelAndView = new ModelAndView("csvReport", parameterMap);
+		} catch (ApplicationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return modelAndView;
+
+	}// generatePdfReport
+
+	@RequestMapping(method = RequestMethod.GET, value = "College/html")
+	public ModelAndView generateHTMLReport(ModelAndView modelAndView) {
+
+		Map<String, Object> parameterMap = new HashMap<String, Object>();
+
+		List usersList;
+		try {
+			usersList = service.list();
+			JRDataSource JRdataSource = new JRBeanCollectionDataSource(
+					usersList);
+			parameterMap.put("datasource", JRdataSource);
+			// pdfReport bean has ben declared in the jasper-views.xml file
+			modelAndView = new ModelAndView("htmlReport", parameterMap);
+		} catch (ApplicationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return modelAndView;
+
+	}// generatePdfReport
 
 }

@@ -12,6 +12,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,11 +41,13 @@ public class LoginCtl extends BaseCtl {
 	 */
 
 	@RequestMapping(value = "/Login/display", method = RequestMethod.GET)
-	public ModelAndView doDisplay() {
+	public String doDisplay(Model model) {
 		System.out.println("In LoginCtl.doDisplay()");
 		LoginForm form = new LoginForm();
-		form.setMessage("Welcome");
-		return new ModelAndView("Login", "form", form);
+		//form.setMessage("Welcome");
+		model.addAttribute("form", form);
+		model.addAttribute("message", "Welcome");
+		return "Login";
 	}
 
 	/**
