@@ -1,21 +1,10 @@
 package in.co.sunrays.proj1.ctl;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import in.co.sunrays.proj1.dto.StudentDTO;
 import in.co.sunrays.proj1.exception.ApplicationException;
 import in.co.sunrays.proj1.exception.DuplicateRecordException;
 import in.co.sunrays.proj1.form.StudentForm;
 import in.co.sunrays.proj1.service.StudentServiceInt;
-import in.co.sunrays.proj1.service.StudentServiceInt;
-
 import javax.validation.Valid;
-
-import net.sf.jasperreports.engine.JRDataSource;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -23,7 +12,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -82,23 +70,28 @@ public class StudentCtl extends BaseCtl {
 	 * @return
 	 */
 
-/*	@RequestMapping(value = "/Student/submit", method = RequestMethod.POST)
-	public ModelAndView doSubmit(
-			@ModelAttribute("form") @Valid StudentForm form,
-			BindingResult bindingResult) {*/
-	
+	/*
+	 * @RequestMapping(value = "/Student/submit", method = RequestMethod.POST)
+	 * public ModelAndView doSubmit(
+	 * 
+	 * @ModelAttribute("form") @Valid StudentForm form, BindingResult
+	 * bindingResult) {
+	 */
+
 	@RequestMapping(value = "/Student/submit", method = RequestMethod.POST)
 	public ModelAndView doSubmit(
-			@ModelAttribute("form")StudentForm form) {
+			@ModelAttribute("form") @Valid StudentForm form,
+			BindingResult bindingResult) {
 		System.out.println("In StudentCtl.doSubmit()");
 		StudentDTO dto = new StudentDTO();
 
-		/*
-		 * System.out.println("result Fail :" + bindingResult.hasErrors());
-		 * 
-		 * if (bindingResult.hasErrors()) { System.out.println("Has Error");
-		 * return new ModelAndView("Student", "form", form); }
-		 */
+		System.out.println("result Fail :" + bindingResult.hasErrors());
+
+		if (bindingResult.hasErrors()) {
+			System.out.println("Has Error");
+			return new ModelAndView("Student", "form", form);
+		}
+
 		dto.setId(form.getId());
 		dto.setFirstName(form.getFirstName());
 		dto.setLastName(form.getLastName());
@@ -189,8 +182,5 @@ public class StudentCtl extends BaseCtl {
 		System.out.println("out StudentCtl.searchList()");
 		return new ModelAndView("StudentList", "form", form);
 	}
-	
-	
-	
-	
+
 }

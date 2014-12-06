@@ -12,7 +12,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 
 /**
- * College JavaBean encapsulates College attributes
+ * Student JavaBean encapsulates Student attributes
  * 
  * @version 1.0
  * @since 16 Nov 2014

@@ -7,7 +7,15 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<a href="Login/display">Login</a>
-	
+
+	<h1 align="Center">
+		<img src="resources/images/customLogo_jpg.png" width="318"
+			height="127" border="0">
+	</h1>
+	<h1 align="Center">
+		<font size="10px" color="red"><a href="Login/display">Online
+				Result System</font>
+	</h1>
+
 </body>
 </html>

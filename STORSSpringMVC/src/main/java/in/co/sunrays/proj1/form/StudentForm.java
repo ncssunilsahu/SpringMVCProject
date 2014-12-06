@@ -6,18 +6,22 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.validator.constraints.NotEmpty;
 
 public class StudentForm extends BaseForm {
 
 	/**
 	 * First Name of Student
 	 */
+	@NotEmpty
 	private String firstName;
 	/**
 	 * Last Name of Student
 	 */
+	@NotEmpty
 	private String lastName;
 	/**
 	 * Date of Birth of Student
@@ -26,10 +30,12 @@ public class StudentForm extends BaseForm {
 	/**
 	 * Mobileno of Student
 	 */
+	@NotEmpty
 	private String mobileNo;
 	/**
 	 * Email of Student
 	 */
+	@NotEmpty
 	private String email;
 	/**
 	 * CollegeId of Student
@@ -39,6 +45,7 @@ public class StudentForm extends BaseForm {
 	/**
 	 * College name of Student
 	 */
+	@NotEmpty
 	private String collegeName;
 
 	public String getFirstName() {

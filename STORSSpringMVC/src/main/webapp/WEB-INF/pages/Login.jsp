@@ -20,11 +20,8 @@
 
 	<form:form action="submit" method="post" commandName="form">
 
-		<b>Login</b>
-		<br>
-		<br>
-${message}
-<br>
+		<h1>Login</h1>
+
 		<table>
 			<tr>
 				<td><form:label path="emailId">
@@ -43,7 +40,7 @@ ${message}
 
 		</table>
 		<input type="submit" value="SignIn" name="operation">
-		<input type="reset" value="Reset">
+		<input type="submit" value="SignUp">
 	</form:form>
 </body>
 </html>

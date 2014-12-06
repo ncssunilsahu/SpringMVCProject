@@ -17,19 +17,20 @@
 
 	<mvc:interceptors>
 		<mvc:interceptor>
+			<mvc:mapping path="/Student/*" />
 			<mvc:mapping path="/College/*" />
 			<mvc:mapping path="/Welcome" />
 			<bean class="in.co.sunrays.proj1.interceptor.FrontController" />
 		</mvc:interceptor>
 	</mvc:interceptors>
 
-
+	<mvc:resources mapping="/resources/**" location="/resources/" />
 
 	<context:component-scan base-package="in.co.sunrays.proj1.ctl" />
 
 
 	<import resource="jasper-views.xml" />
-	
+
 	<tx:annotation-driven transaction-manager="hibernateTransactionManager" />
 	<!-- without tiles <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"> 
 		<property name="prefix"> <value>/WEB-INF/pages/</value> </property> <property 
@@ -125,6 +126,8 @@
 			<list>
 				<value>in.co.sunrays.proj1.dto.CollegeDTO</value>
 				<value>in.co.sunrays.proj1.dto.StudentDTO</value>
+				<value>in.co.sunrays.proj1.dto.RoleDTO</value>
+				<value>in.co.sunrays.proj1.dto.UserDTO</value>
 			</list>
 		</property>
 	</bean>
@@ -138,8 +141,11 @@
 
 	<bean id="collegeService" class="in.co.sunrays.proj1.service.CollegeServiceSpringImpl"></bean>
 	<bean id="studentService" class="in.co.sunrays.proj1.service.StudentServiceSpringImpl"></bean>
+	<bean id="userService" class="in.co.sunrays.proj1.service.UserServiceSpringImpl"></bean>
 
 	<bean id="collegeDAO" class="in.co.sunrays.proj1.dao.CollegeDAOHibImpl"></bean>
 	<bean id="studentDAO" class="in.co.sunrays.proj1.dao.StudentDAOHibImpl"></bean>
+	<bean id="userDAO" class="in.co.sunrays.proj1.dao.UserDAOHibImpl"></bean>
+
 
 </beans>

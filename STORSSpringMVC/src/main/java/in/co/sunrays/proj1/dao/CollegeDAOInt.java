@@ -2,7 +2,6 @@ package in.co.sunrays.proj1.dao;
 
 import in.co.sunrays.proj1.dto.CollegeDTO;
 import in.co.sunrays.proj1.exception.DatabaseException;
-
 import java.util.List;
 
 /**

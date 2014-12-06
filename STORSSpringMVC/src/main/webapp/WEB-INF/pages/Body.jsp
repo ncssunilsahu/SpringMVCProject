@@ -1,5 +1,4 @@
 <html>
-<body>
-This my Body
+<body>This my Body
 </body>
 </html>

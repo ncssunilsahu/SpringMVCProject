@@ -7,7 +7,7 @@
 <%@ page isELIgnored="false"%>
 </head>
 <title>College Form</title>
-<script type="text/javascript" src="src/main/webapp/WEB-INF/cal/calendar.js"></script>
+<script type="text/javascript" src="../resources/cal/calendar.js"></script>
 <style>
 .error {
 	color: red;
@@ -55,7 +55,8 @@
 					</form:label></td>
 				<td><form:input path="dob" readonly="true" /> <a
 					href="javascript:getCalendar(document.forms[0].dob);"> <img
-		src="src/main/webapp/WEB-INF/images/cal.jpg" width="16" height="15" border="0"></a></td>
+						src="../resources/images/cal.jpg" width="16" height="15"
+						border="0"></a></td>
 				<td><form:errors path="dob" cssClass="error" /></td>
 			</tr>
 

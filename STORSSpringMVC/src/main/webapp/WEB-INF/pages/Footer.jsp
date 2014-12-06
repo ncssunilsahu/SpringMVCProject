@@ -1,5 +1,3 @@
-<html>
-<body>
-Copyright &copy; sunrays technologies
-</body>
-</html>
+<CENTER>
+	<H3>(c) Copyrights SUNRAYS Technologies</H3>
+</CENTER>

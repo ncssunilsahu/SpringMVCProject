@@ -3,9 +3,7 @@ package in.co.sunrays.proj1.dao;
 import in.co.sunrays.proj1.dto.CollegeDTO;
 import in.co.sunrays.proj1.dto.StudentDTO;
 import in.co.sunrays.proj1.exception.DatabaseException;
-
 import java.util.List;
-
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;

@@ -1,23 +1,26 @@
 <%@taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <html>
 <head>
+<style type="text/css">
+.errorMessage {
+	color: red;
+	font-size: 16px;
+}
+</style>
 </head>
 <body>
-	<table border="1" cellspacing="2" align="center" bordercolor="black">
-
+	<table width="100%">
 		<tr>
-			<td colspan="2" height="120px"><tiles:insertAttribute
-					name="header"></tiles:insertAttribute></td>
+			<td align="center" colspan="2"><tiles:insertAttribute
+					name="header" /></td>
 		</tr>
 		<tr>
-			<td colspan="1" height="400px" width="300"><tiles:insertAttribute
-					name="menu"></tiles:insertAttribute></td>
-			<td colspan="1" height="400px" width="700"><tiles:insertAttribute
-					name="body"></tiles:insertAttribute></td>
+			<td height="400" valign="top" align="center"><tiles:insertAttribute
+					name="body" /></td>
 		</tr>
 		<tr>
-			<td colspan="2" height="80px" width="1000" align="center"><tiles:insertAttribute
-					name="footer"></tiles:insertAttribute></td>
+			<td align="center" colspan="2"><tiles:insertAttribute
+					name="footer" /></td>
 		</tr>
 	</table>
 </body>
