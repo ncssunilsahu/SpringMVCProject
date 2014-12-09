@@ -23,6 +23,7 @@
 					<th>Email Id</th>
 					<th>Gender</th>
 					<th>Mobile No</th>
+					<th>Actions on Row</th>
 				</tr>
 
 				<s:forEach items="${form.dtoList}" var="user">
@@ -33,6 +34,9 @@
 						<td><s:out value="${user.emailId}" /></td>
 						<td><s:out value="${user.gender}" /></td>
 						<td><s:out value="${user.mobileNo}"></s:out></td>
+						<td align="center"><a
+							href="/STORSSpringMVC/User/display?id=${user.id}">Edit</a> | <a
+							href="/STORSSpringMVC/User/search?id=${user.id}&operation=Delete">Delete</a></td>
 					</tr>
 				</s:forEach>
 			</s:if>

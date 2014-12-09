@@ -20,6 +20,7 @@
 					<th>ID</th>
 					<th>Name</th>
 					<th>Description</th>
+					<th>Actions on Row</th>
 				</tr>
 
 				<s:forEach items="${form.dtoList}" var="role">
@@ -27,6 +28,10 @@
 						<td><s:out value="${role.id}" /></td>
 						<td><s:out value="${role.name}" /></td>
 						<td><s:out value="${role.description}" /></td>
+						<td align="center"><a
+							href="/STORSSpringMVC/Role/display?id=${role.id}">Edit</a>
+							| <a
+							href="/STORSSpringMVC/Role/search?id=${role.id}&operation=Delete">Delete</a></td>
 					</tr>
 				</s:forEach>
 			</s:if>

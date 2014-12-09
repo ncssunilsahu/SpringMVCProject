@@ -80,8 +80,6 @@
 		</table>
 		<input type="submit" value="Save" name="operation">
 		<input type="reset" value="Reset">
-		<a href="/STORSSpringMVC/Student/search">StudentList</a>
-		<a href="/STORSSpringMVC/Welcome">Welcome</a>
 	</form:form>
 </body>
 </html>

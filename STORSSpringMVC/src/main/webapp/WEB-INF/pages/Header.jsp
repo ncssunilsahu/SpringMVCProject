@@ -17,8 +17,6 @@
 									&emsp;
 									<a href="/STORSSpringMVC/Marksheet/search"><b>MarksheetList</b></a>
 									&emsp;
-									<a href="/STORSSpringMVC/User/display"><b>User</b></a>
-									&emsp;
 									<a href="/STORSSpringMVC/User/search"><b>UserList</b></a>
 									&emsp;
 									<a href="/STORSSpringMVC/Role/display"><b>Role</b></a>
@@ -44,7 +42,7 @@
 									&emsp;
 									<a href="/STORSSpringMVC/Login/logout?operation=Logout"><b>Logout</b></a>
 									<br>
-									<b>${form.message} &emsp;</b>
+				
 								</c:if>
 
 								<c:if test="${sessionScope.user != 1}">
@@ -62,7 +60,7 @@
 									&emsp;
 									<a href="/STORSSpringMVC/Login/logout?operation=Logoutt"><b>Logout</b></a>
 									<br>
-									<b>${form.message} &emsp;</b>
+							
 								</c:if>
 
 							</c:if> <c:if test="${sessionScope.user == null}">

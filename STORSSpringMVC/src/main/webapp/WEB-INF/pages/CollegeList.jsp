@@ -23,6 +23,7 @@
 					<th>State</th>
 					<th>City</th>
 					<th>Phone</th>
+					<th>Actions on Row</th>
 				</tr>
 
 				<s:forEach items="${form.dtoList}" var="college">
@@ -33,6 +34,9 @@
 						<td><s:out value="${college.state}" /></td>
 						<td><s:out value="${college.city}" /></td>
 						<td><s:out value="${college.phoneNo}"></s:out></td>
+						<td align="center"><a
+							href="/STORSSpringMVC/College/display?id=${college.id}">Edit</a>
+							| <a href="/STORSSpringMVC/College/search?id=${college.id}&operation=Delete">Delete</a></td>
 					</tr>
 				</s:forEach>
 			</s:if>

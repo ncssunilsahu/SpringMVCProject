@@ -5,12 +5,16 @@ import in.co.sunrays.proj1.exception.ApplicationException;
 import in.co.sunrays.proj1.exception.DuplicateRecordException;
 import in.co.sunrays.proj1.form.CollegeForm;
 import in.co.sunrays.proj1.service.CollegeServiceInt;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.validation.Valid;
+
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -100,6 +104,7 @@ public class CollegeCtl extends BaseCtl {
 			if (OP_SAVE.equalsIgnoreCase(form.getOperation())) {
 
 				System.out.println("in CollegeCtl add operation");
+
 				if (dto.getId() > 0) {
 					service.update(dto);
 					form.setMessage("Data is Updated Successfully");
@@ -107,6 +112,7 @@ public class CollegeCtl extends BaseCtl {
 					Long id = service.add(dto);
 					System.out.println(id + " data inserted");
 					form.setMessage("Data is Added Successfully");
+					form.setId(id);
 				}
 			} else if (OP_DELETE.equalsIgnoreCase(form.getOperation())) {
 				service.delete(dto);
@@ -136,7 +142,8 @@ public class CollegeCtl extends BaseCtl {
 
 	@RequestMapping(value = "College/search", method = { RequestMethod.GET,
 			RequestMethod.POST })
-	public ModelAndView searchList(@ModelAttribute("form") CollegeForm form) {
+	public ModelAndView searchList(@ModelAttribute("form") CollegeForm form,
+			@RequestParam(required = false) Long id) {
 		System.out.println("in collegectl searchList method");
 		int pageNo = form.getPageNo();
 		int pageSize = form.getPageSize();
@@ -155,6 +162,18 @@ public class CollegeCtl extends BaseCtl {
 			}
 		}
 
+		if (OP_DELETE.equalsIgnoreCase(form.getOperation())) {
+			System.out.println("in del op");
+			System.out.println("ctl delete id is :" + id);
+			dto.setId(id);
+			try {
+				service.delete(dto);
+
+			} catch (ApplicationException e) {
+				e.printStackTrace();
+			}
+
+		}
 		pageNo = (pageNo < 1) ? 1 : pageNo;
 
 		try {

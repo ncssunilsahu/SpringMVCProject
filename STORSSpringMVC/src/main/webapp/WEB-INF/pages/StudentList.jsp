@@ -24,6 +24,7 @@
 					<th>DOB</th>
 					<th>Mobile</th>
 					<th>Email</th>
+					<th>Actions on Row</th>
 				</tr>
 
 				<s:forEach items="${form.dtoList}" var="student">
@@ -35,6 +36,10 @@
 						<td><s:out value="${student.dob}" /></td>
 						<td><s:out value="${student.mobileNo}"></s:out></td>
 						<td><s:out value="${student.email}"></s:out></td>
+						<td align="center"><a
+							href="/STORSSpringMVC/Student/display?id=${student.id}">Edit</a>
+							| <a
+							href="/STORSSpringMVC/Student/search?id=${student.id}&operation=Delete">Delete</a></td>
 					</tr>
 				</s:forEach>
 			</s:if>
