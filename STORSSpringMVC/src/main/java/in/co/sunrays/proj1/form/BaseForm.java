@@ -1,5 +1,6 @@
 package in.co.sunrays.proj1.form;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -44,9 +45,32 @@ public class BaseForm {
 	 */
 	private String message;
 
+	public long getCreatedDatetime() {
+		return createdDatetime;
+	}
+
+	public void setCreatedDatetime(long createdDatetime) {
+		this.createdDatetime = createdDatetime;
+	}
+
+	public long getModifiedDatetime() {
+		return modifiedDatetime;
+	}
+
+	public void setModifiedDatetime(long modifiedDatetime) {
+		this.modifiedDatetime = modifiedDatetime;
+	}
+
 	/**
-	 * accessor
+	 * Contains Created Timestamp of database record
 	 */
+	protected long createdDatetime;
+
+	/**
+	 * Contains Modified Timestamp of database record
+	 */
+	protected long modifiedDatetime;
+
 	public long getId() {
 		return id;
 	}
@@ -101,6 +125,32 @@ public class BaseForm {
 
 	public void setMessage(String message) {
 		this.message = message;
+	}
+
+	/**
+	 * Contains USER ID who created this database record
+	 */
+	protected String createdBy;
+
+	/**
+	 * Contains USER ID who modified this database record
+	 */
+	protected String modifiedBy;
+
+	public String getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public String getModifiedBy() {
+		return modifiedBy;
+	}
+
+	public void setModifiedBy(String modifiedBy) {
+		this.modifiedBy = modifiedBy;
 	}
 
 }

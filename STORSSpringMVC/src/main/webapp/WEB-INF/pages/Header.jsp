@@ -1,13 +1,75 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
+<head>
+<%@ page isELIgnored="false"%>
+</head>
 <body>
 	<table width="100%" border="1">
 		<tr>
 			<td>
 				<table>
 					<tr>
-						<td width="80%"><a href="/STORSSpringMVC/index.jsp"><b>Welcome</b></a>&emsp;
-							<a href=""><b>Login</b></a></td>
+						<td width="80%"><c:if test="${sessionScope.user != null}">
+								<a href="#"><b>Welcome </b></a>
+
+								<c:if test="${sessionScope.user == 1}">
+									<a href="/STORSSpringMVC/Marksheet/display"><b>Marksheet</b></a>
+									&emsp;
+									<a href="/STORSSpringMVC/Marksheet/search"><b>MarksheetList</b></a>
+									&emsp;
+									<a href="/STORSSpringMVC/User/display"><b>User</b></a>
+									&emsp;
+									<a href="/STORSSpringMVC/User/search"><b>UserList</b></a>
+									&emsp;
+									<a href="/STORSSpringMVC/Role/display"><b>Role</b></a>
+									&emsp;
+									<a href="/STORSSpringMVC/Role/search"><b>RoleList</b></a>
+									&emsp;
+									<a href="/STORSSpringMVC/College/display"><b>College</b></a>
+									&emsp;
+									<a href="/STORSSpringMVC/College/search"><b>CollegeList</b></a>
+									&emsp;
+									<a href="/STORSSpringMVC/Student/display"><b>Student</b></a>
+									&emsp;
+									<a href="/STORSSpringMVC/Student/search"><b>StudentList</b></a>
+									&emsp;
+									<a
+										href='/ORSProject2/user/d_MyProfile?id=<s:property value="#session.user.id"/>'><b>MyProfile</b></a>
+									&emsp;
+									<a href="/ORSProject2/user/d_ChangePassword"><b>Change
+											Password</b></a>
+									&emsp;
+									<a href="/ORSProject2/doc/index.html" target="_blank"><b>Java
+											Doc</b></a>
+									&emsp;
+									<a href="/STORSSpringMVC/Login/logout?operation=Logout"><b>Logout</b></a>
+									<br>
+									<b>${form.message} &emsp;</b>
+								</c:if>
+
+								<c:if test="${sessionScope.user != 1}">
+									<a href="/STORSSpringMVC/College/display"><b>Get
+											Marksheet</b></a>
+									&emsp;
+									<a
+										href='/ORSProject2/user/d_MyProfile?id=<s:property value="#session.user.id"/>'><b>MyProfile</b></a>
+									&emsp;
+									<a href="/STORSSpringMVC/College/search"><b>Change
+											Password</b></a>
+									&emsp;
+									<a href="/ORSProject2/doc/index.html" target="_blank"><b>Java
+											Doc</b></a>
+									&emsp;
+									<a href="/STORSSpringMVC/Login/logout?operation=Logoutt"><b>Logout</b></a>
+									<br>
+									<b>${form.message} &emsp;</b>
+								</c:if>
+
+							</c:if> <c:if test="${sessionScope.user == null}">
+								<a href="/STORSSpringMVC/index.jsp"><b>Welcome</b></a>
+								&emsp;
+								<a href="/"><b>Login</b></a></td>
+						</c:if>
 						<td width="20%">
 							<h1 align="Right">
 								<img src="../resources/images/customLogo_jpg.png" width="318"

@@ -17,7 +17,7 @@
 </head>
 
 <body>
-
+	${form.message }
 	<form:form action="submit" method="post" commandName="form">
 
 		<h1>Login</h1>
@@ -40,7 +40,9 @@
 
 		</table>
 		<input type="submit" value="SignIn" name="operation">
-		<input type="submit" value="SignUp">
 	</form:form>
+	<input type="submit" value="Sign Up" style="margin-left: 200px;margin-top: -47px"
+		onclick="location.href='/STORSSpringMVC/User/display'"
+		name="operation">
 </body>
 </html>

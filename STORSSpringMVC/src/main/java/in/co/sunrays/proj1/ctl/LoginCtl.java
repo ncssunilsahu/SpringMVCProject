@@ -1,11 +1,12 @@
 package in.co.sunrays.proj1.ctl;
 
-import in.co.sunrays.proj1.dto.CollegeDTO;
+import in.co.sunrays.proj1.dto.RoleDTO;
+import in.co.sunrays.proj1.dto.UserDTO;
 import in.co.sunrays.proj1.exception.ApplicationException;
-import in.co.sunrays.proj1.exception.DuplicateRecordException;
-import in.co.sunrays.proj1.form.CollegeForm;
 import in.co.sunrays.proj1.form.LoginForm;
-import in.co.sunrays.proj1.service.CollegeServiceInt;
+import in.co.sunrays.proj1.form.UserForm;
+import in.co.sunrays.proj1.service.RoleServiceInt;
+import in.co.sunrays.proj1.service.UserServiceInt;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -18,7 +19,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -34,6 +34,12 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class LoginCtl extends BaseCtl {
 
+	@Autowired
+	private UserServiceInt service;
+
+	@Autowired
+	private RoleServiceInt roleservice;
+
 	/**
 	 * Display Login Page
 	 * 
@@ -44,7 +50,7 @@ public class LoginCtl extends BaseCtl {
 	public String doDisplay(Model model) {
 		System.out.println("In LoginCtl.doDisplay()");
 		LoginForm form = new LoginForm();
-		//form.setMessage("Welcome");
+		// form.setMessage("Welcome");
 		model.addAttribute("form", form);
 		model.addAttribute("message", "Welcome");
 		return "Login";
@@ -63,30 +69,39 @@ public class LoginCtl extends BaseCtl {
 	public ModelAndView doSubmit(@ModelAttribute("form") @Valid LoginForm form,
 			BindingResult bindingResult, HttpSession session) {
 		System.out.println("In LogfinCtl.doSubmit()");
-
+		System.out.println("login" + form.getEmailId());
+		System.out.println("password" + form.getPassword());
+		UserDTO dto = new UserDTO();
 		System.out.println("result Fail :" + bindingResult.hasErrors());
 
 		if (bindingResult.hasErrors()) {
 			System.out.println("Has Error");
 			return new ModelAndView("Login", "form", form);
 		}
-		if (OP_SIGNIN.equalsIgnoreCase(form.getOperation())) {
 
-			System.out.println("in CollegeCtl SignIn operation");
+		dto.setEmailId(form.getEmailId());
+		dto.setPassword(form.getPassword());
+		try {
+			if (OP_SIGNIN.equalsIgnoreCase(form.getOperation())) {
 
-			if (form.getEmailId().equals("raj@gmail.com")
-					&& form.getPassword().equals("kumar")) {
-
-				session.setAttribute("user", form.getEmailId());
+				System.out.println("in CollegeCtl SignIn operation");
+				dto = service.authenticate(dto);
+				System.out.println("id" + dto.getRoleId());
+				session.setAttribute("user", dto.getRoleId());
+				RoleDTO roleDTO = roleservice.findByPK(dto.getRoleId());
+				System.out.println("roleid" + roleDTO.getId());
+				session.setAttribute("role", roleDTO.getName());
 				System.out.println("Session value :"
 						+ session.getAttribute("user"));
-				form.setMessage("Welcome :" + form.getEmailId());
+				form.setMessage("Welcome :" + dto.getFirstName());
 				return new ModelAndView("Welcome", "form", form);
-			} else {
 
-				form.setMessage("invalid emailId or password");
-				return new ModelAndView("Login", "form", form);
 			}
+
+		} catch (ApplicationException e) {
+			System.out.println("Critical Issue " + e);
+			form.setMessage("Invalid EmailID And Password");
+			return new ModelAndView("Login", "form", form);
 		}
 
 		System.out.println("out LoginCtl save operation");
@@ -111,7 +126,6 @@ public class LoginCtl extends BaseCtl {
 		LoginForm form = new LoginForm();
 		if (OP_LOGOUT.equalsIgnoreCase(operation)) {
 			session.invalidate();
-			form.setMessage("Logout successfully");
 			return new ModelAndView("Login", "form", form);
 
 		}

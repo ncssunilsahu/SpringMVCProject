@@ -1,11 +1,12 @@
 package in.co.sunrays.proj1.ctl;
 
-import in.co.sunrays.proj1.dto.UserDTO;
+import in.co.sunrays.proj1.dto.RoleDTO;
+import in.co.sunrays.proj1.dto.RoleDTO;
 import in.co.sunrays.proj1.exception.ApplicationException;
 import in.co.sunrays.proj1.exception.DuplicateRecordException;
 import in.co.sunrays.proj1.form.RoleForm;
-import in.co.sunrays.proj1.form.UserForm;
-import in.co.sunrays.proj1.service.UserServiceInt;
+import in.co.sunrays.proj1.form.RoleForm;
+import in.co.sunrays.proj1.service.RoleServiceInt;
 
 import java.sql.Timestamp;
 import java.util.Date;
@@ -28,7 +29,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
- * User functionality Controller. Performs operation
+ * Role functionality Controller. Performs operation
  * 
  * @version 1.0
  * @since 16 Nov 2014
@@ -38,79 +39,69 @@ import org.springframework.web.servlet.ModelAndView;
  */
 
 @Controller
-public class UserCtl extends BaseCtl {
+public class RoleCtl extends BaseCtl {
 
 	@Autowired
-	private UserServiceInt service;
+	private RoleServiceInt service;
 
 	/**
-	 * Display User Page
+	 * Display Role Page
 	 * 
 	 * @param id
 	 * @return
 	 */
 
-	@RequestMapping(value = "/User/display", method = RequestMethod.GET)
+	@RequestMapping(value = "/Role/display", method = RequestMethod.GET)
 	public ModelAndView doDisplay(@RequestParam(required = false) Long id) {
 		// @RequestParam(value="0", required = false) Long id) {
-		System.out.println("In UserCtl.doDisplay()" + id);
-		UserForm form = new UserForm();
-		UserDTO dto = new UserDTO();
+		System.out.println("In RolerCtl.doDisplay()" + id);
+		RoleForm form = new RoleForm();
+		RoleDTO dto = new RoleDTO();
 		if (id != null && id > 0) {
 			try {
 				dto = service.findByPK(id);
 				form.setId(dto.getId());
-				form.setFirstName(dto.getFirstName());
-				form.setLastName(dto.getLastName());
-				form.setDob(dto.getDob());
-				form.setEmailId(dto.getEmailId());
-				form.setGender(dto.getGender());
-				form.setMobileNo(dto.getMobileNo());
+				form.setName(dto.getName());
+				form.setDescription(dto.getDescription());
 			} catch (ApplicationException e) {
 				e.printStackTrace();
 				form.setMessage("Critical issue : " + e.getMessage());
 			}
 		}
-		return new ModelAndView("User", "form", form);
+		return new ModelAndView("Role", "form", form);
 
 	}
 
 	/**
-	 * Perform User Operation
+	 * Perform Role Operation
 	 * 
 	 * @param form
 	 * @param bindingResult
 	 * @return
 	 */
 
-	@RequestMapping(value = "/User/submit", method = RequestMethod.POST)
-	public ModelAndView doSubmit(@ModelAttribute("form") @Valid UserForm form,
+	@RequestMapping(value = "/Role/submit", method = RequestMethod.POST)
+	public ModelAndView doSubmit(@ModelAttribute("form") @Valid RoleForm form,
 			BindingResult bindingResult) {
-		System.out.println("In UserCtl.doSubmit()");
-		UserDTO dto = new UserDTO();
+		System.out.println("In RoleCtl.doSubmit()");
+		RoleDTO dto = new RoleDTO();
 
 		System.out.println("result Fail :" + bindingResult.hasErrors());
 
 		if (bindingResult.hasErrors()) {
 			System.out.println("Has Error");
-			return new ModelAndView("User", "form", form);
+			return new ModelAndView("Role", "form", form);
 		}
 
 		dto.setId(form.getId());
-		dto.setFirstName(form.getFirstName());
-		dto.setLastName(form.getLastName());
-		dto.setDob(form.getDob());
-		dto.setGender(form.getGender());
-		dto.setEmailId(form.getEmailId());
-		dto.setPassword(form.getPassword());
-		dto.setMobileNo(form.getMobileNo());
+		dto.setName(form.getName());
+		dto.setDescription(form.getDescription());
 		dto.setCreatedDatetime(new Timestamp(new Date().getTime()));
 		dto.setModifiedDatetime(new Timestamp(new Date().getTime()));
-		dto.setRoleId(RoleForm.ROLE_STUDENT);
 		try {
 			if (OP_SAVE.equalsIgnoreCase(form.getOperation())) {
 
-				System.out.println("in UserCtl add operation");
+				System.out.println("in RoleCtl add operation");
 				if (dto.getId() > 0) {
 					service.update(dto);
 					form.setMessage("Data is Updated Successfully");
@@ -118,7 +109,6 @@ public class UserCtl extends BaseCtl {
 					Long id = service.add(dto);
 					System.out.println(id + " data inserted");
 					form.setMessage("Data is Added Successfully");
-					return new ModelAndView("Login", "form", form);
 				}
 			} else if (OP_DELETE.equalsIgnoreCase(form.getOperation())) {
 				service.delete(dto);
@@ -128,32 +118,32 @@ public class UserCtl extends BaseCtl {
 
 		} catch (ApplicationException e) {
 			System.out.println("Critical Issue " + e);
-			return new ModelAndView("User", "form", form);
+			return new ModelAndView("Role", "form", form);
 		} catch (DuplicateRecordException e) {
-			System.out.println("Login Name already exist." + e);
-			form.setMessage("Login Name already exist");
-			return new ModelAndView("User", "form", form);
+			System.out.println("Role Name already exist." + e);
+			form.setMessage("Role Name already exist");
+			return new ModelAndView("Role", "form", form);
 		}
 
-		System.out.println("out UserCtl add operation");
-		return new ModelAndView("User", "form", form);
+		System.out.println("out RoleCtl add operation");
+		return new ModelAndView("Role", "form", form);
 	}
 
 	/**
-	 * Performs List and Search operation on UserList
+	 * Performs List and Search operation on RoleList
 	 * 
 	 * @param form
 	 * @return
 	 */
 
-	@RequestMapping(value = "User/search", method = { RequestMethod.GET,
+	@RequestMapping(value = "Role/search", method = { RequestMethod.GET,
 			RequestMethod.POST })
-	public ModelAndView searchList(@ModelAttribute("form") UserForm form) {
-		System.out.println("in userctl searchList method");
+	public ModelAndView searchList(@ModelAttribute("form") RoleForm form) {
+		System.out.println("in rolectl searchList method");
 		int pageNo = form.getPageNo();
 		int pageSize = form.getPageSize();
 		list = null;
-		UserDTO dto = new UserDTO();
+		RoleDTO dto = new RoleDTO();
 
 		if (OP_NEXT.equalsIgnoreCase(form.getOperation())) {
 			pageNo++;
@@ -162,8 +152,8 @@ public class UserCtl extends BaseCtl {
 			pageNo--;
 
 		} else if (OP_GO.equalsIgnoreCase(form.getOperation())) {
-			if (form.getFirstName() != null && form.getFirstName().length() > 0) {
-				dto.setFirstName(form.getFirstName());
+			if (form.getName() != null && form.getName().length() > 0) {
+				dto.setName(form.getName());
 			}
 		}
 
@@ -187,20 +177,20 @@ public class UserCtl extends BaseCtl {
 		form.setDtoList(list);
 
 		System.out.println("form list size :" + form.getDtoList().size());
-		System.out.println("out UserCtl.searchList()");
-		return new ModelAndView("UserList", "form", form);
+		System.out.println("out RoleCtl.searchList()");
+		return new ModelAndView("RoleList", "form", form);
 	}
 
-	@RequestMapping(method = RequestMethod.GET, value = "User/pdf")
+	@RequestMapping(method = RequestMethod.GET, value = "Role/pdf")
 	public ModelAndView generatePdfReport(ModelAndView modelAndView) {
 
 		Map<String, Object> parameterMap = new HashMap<String, Object>();
 
-		List usersList;
+		List rolesList;
 		try {
-			usersList = service.list();
+			rolesList = service.list();
 			JRDataSource JRdataSource = new JRBeanCollectionDataSource(
-					usersList);
+					rolesList);
 			parameterMap.put("datasource", JRdataSource);
 			// pdfReport bean has ben declared in the jasper-views.xml file
 			modelAndView = new ModelAndView("pdfReport", parameterMap);
@@ -212,16 +202,16 @@ public class UserCtl extends BaseCtl {
 
 	}// generatePdfReport
 
-	@RequestMapping(method = RequestMethod.GET, value = "User/xls")
+	@RequestMapping(method = RequestMethod.GET, value = "Role/xls")
 	public ModelAndView generateXLSReport(ModelAndView modelAndView) {
 
 		Map<String, Object> parameterMap = new HashMap<String, Object>();
 
-		List usersList;
+		List rolesList;
 		try {
-			usersList = service.list();
+			rolesList = service.list();
 			JRDataSource JRdataSource = new JRBeanCollectionDataSource(
-					usersList);
+					rolesList);
 			parameterMap.put("datasource", JRdataSource);
 			// pdfReport bean has ben declared in the jasper-views.xml file
 			modelAndView = new ModelAndView("xlsReport", parameterMap);
@@ -233,16 +223,16 @@ public class UserCtl extends BaseCtl {
 
 	}// generatePdfReport
 
-	@RequestMapping(method = RequestMethod.GET, value = "User/csv")
+	@RequestMapping(method = RequestMethod.GET, value = "Role/csv")
 	public ModelAndView generateCSVReport(ModelAndView modelAndView) {
 
 		Map<String, Object> parameterMap = new HashMap<String, Object>();
 
-		List usersList;
+		List rolesList;
 		try {
-			usersList = service.list();
+			rolesList = service.list();
 			JRDataSource JRdataSource = new JRBeanCollectionDataSource(
-					usersList);
+					rolesList);
 			parameterMap.put("datasource", JRdataSource);
 			// pdfReport bean has ben declared in the jasper-views.xml file
 			modelAndView = new ModelAndView("csvReport", parameterMap);
@@ -254,16 +244,16 @@ public class UserCtl extends BaseCtl {
 
 	}// generatePdfReport
 
-	@RequestMapping(method = RequestMethod.GET, value = "User/html")
+	@RequestMapping(method = RequestMethod.GET, value = "Role/html")
 	public ModelAndView generateHTMLReport(ModelAndView modelAndView) {
 
 		Map<String, Object> parameterMap = new HashMap<String, Object>();
 
-		List usersList;
+		List rolesList;
 		try {
-			usersList = service.list();
+			rolesList = service.list();
 			JRDataSource JRdataSource = new JRBeanCollectionDataSource(
-					usersList);
+					rolesList);
 			parameterMap.put("datasource", JRdataSource);
 			// pdfReport bean has ben declared in the jasper-views.xml file
 			modelAndView = new ModelAndView("htmlReport", parameterMap);
@@ -274,5 +264,4 @@ public class UserCtl extends BaseCtl {
 		return modelAndView;
 
 	}// generatePdfReport
-
 }

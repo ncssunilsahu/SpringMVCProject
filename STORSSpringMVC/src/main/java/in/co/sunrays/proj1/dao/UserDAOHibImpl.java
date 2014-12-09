@@ -95,7 +95,7 @@ public class UserDAOHibImpl implements UserDAOInt {
 		try {
 			List list = sessionFactory.getCurrentSession()
 					.createCriteria(UserDTO.class)
-					.add(Restrictions.eq("login", login)).list();
+					.add(Restrictions.eq("emailId", login)).list();
 
 			System.out.println("list size in find by name dao" + list.size());
 			if (list.size() == 1) {

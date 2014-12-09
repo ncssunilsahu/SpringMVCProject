@@ -47,7 +47,7 @@ public class UserServiceSpringImpl implements UserServiceInt {
 		System.out.println("Service add Started");
 		long pk = 0;
 		try {
-			UserDTO dtoExist = dao.findByLogin(dto.getLogin());
+			UserDTO dtoExist = dao.findByLogin(dto.getEmailId());
 			if (dtoExist != null) {
 				throw new DuplicateRecordException("Login Name already exists");
 			}
@@ -73,7 +73,7 @@ public class UserServiceSpringImpl implements UserServiceInt {
 			DuplicateRecordException {
 		System.out.println("Service update Started");
 		try {
-			UserDTO dtoExist = dao.findByLogin(dto.getLogin());
+			UserDTO dtoExist = dao.findByLogin(dto.getEmailId());
 			// Check if updated User is already exists
 			if (dtoExist != null && dtoExist.getId() != dto.getId()) {
 				throw new DuplicateRecordException("Duplicate Login Id");
@@ -248,7 +248,7 @@ public class UserServiceSpringImpl implements UserServiceInt {
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
 	public UserDTO authenticate(UserDTO dto) throws ApplicationException {
 		try {
-			UserDTO dtoExist = dao.findByLogin(dto.getLogin());
+			UserDTO dtoExist = dao.findByLogin(dto.getEmailId());
 			if (dtoExist != null
 					&& dtoExist.getPassword().equals(dto.getPassword())) {
 				dtoExist.setLastLogin(new Timestamp(new Date().getTime()));
@@ -277,20 +277,20 @@ public class UserServiceSpringImpl implements UserServiceInt {
 
 		long pk = 0;
 		try {
-			UserDTO dtoExist = dao.findByLogin(dto.getLogin());
+			UserDTO dtoExist = dao.findByLogin(dto.getEmailId());
 			if (dtoExist != null) {
 				throw new DuplicateRecordException("Login is already exist.");
 			}
 			pk = dao.add(dto);
 
 			HashMap<String, String> map = new HashMap<String, String>();
-			map.put("login", dto.getLogin());
+			map.put("emailId", dto.getEmailId());
 			map.put("password", dto.getPassword());
 
 			String message = EmailBuilder.getUserRegistrationMessage(map);
 
 			EmailMessage msg = new EmailMessage();
-			msg.setTo(dto.getLogin());
+			msg.setTo(dto.getEmailId());
 			msg.setSubject("Registration is successful for ORS Project SUNRAYS Technologies.");
 			msg.setMessage(message);
 			msg.setMessageType(EmailMessage.HTML_MSG);
@@ -327,13 +327,13 @@ public class UserServiceSpringImpl implements UserServiceInt {
 				HashMap<String, String> map = new HashMap<String, String>();
 				map.put("firstName", dtoExist.getFirstName());
 				map.put("lastName", dtoExist.getLastName());
-				map.put("login", dtoExist.getLogin());
+				map.put("emailId", dtoExist.getEmailId());
 				map.put("password", dtoExist.getPassword());
 
 				String message = EmailBuilder.getForgetPasswordMessage(map);
 				EmailMessage msg = new EmailMessage();
 
-				msg.setTo(dtoExist.getLogin());
+				msg.setTo(dtoExist.getEmailId());
 				msg.setSubject("SUNARYS ORS Password has been changed Successfully.");
 				msg.setMessage(message);
 				msg.setMessageType(EmailMessage.HTML_MSG);
@@ -403,14 +403,14 @@ public class UserServiceSpringImpl implements UserServiceInt {
 				dao.update(dtoExist);
 
 				HashMap<String, String> map = new HashMap<String, String>();
-				map.put("login", dtoExist.getLogin());
+				map.put("emailId", dtoExist.getEmailId());
 				map.put("password", dtoExist.getPassword());
 				map.put("firstName", dtoExist.getFirstName());
 				map.put("lastName", dtoExist.getLastName());
 				String message = EmailBuilder.getForgetPasswordMessage(map);
 
 				EmailMessage msg = new EmailMessage();
-				msg.setTo(dtoExist.getLogin());
+				msg.setTo(dtoExist.getEmailId());
 				msg.setSubject("Password has been reset.");
 				msg.setMessage(message);
 				msg.setMessageType(EmailMessage.HTML_MSG);
@@ -451,14 +451,14 @@ public class UserServiceSpringImpl implements UserServiceInt {
 				HashMap<String, String> map = new HashMap<String, String>();
 				map.put("firstName", dtoExist.getFirstName());
 				map.put("lastName", dtoExist.getLastName());
-				map.put("login", dtoExist.getLogin());
+				map.put("emailId", dtoExist.getEmailId());
 				map.put("password", dtoExist.getPassword());
 
 				String message = EmailBuilder.getForgetPasswordMessage(map);
 
 				EmailMessage msg = new EmailMessage();
 
-				msg.setTo(dtoExist.getLogin());
+				msg.setTo(dtoExist.getEmailId());
 				msg.setSubject("SUNARYS ORS Password reset.");
 				msg.setMessage(message);
 				msg.setMessageType(EmailMessage.HTML_MSG);

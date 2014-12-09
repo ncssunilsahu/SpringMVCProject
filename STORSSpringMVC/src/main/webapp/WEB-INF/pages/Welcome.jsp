@@ -2,15 +2,11 @@
 <head>
 <%@ page isELIgnored="false"%>
 </head>
-<body>${form.message}
-	${message}
+<body>
 	<br>
-	<br>
-	<a href="/STORSSpringMVC/College/display">College</a>
-	<a href="/STORSSpringMVC/College/search">CollegeList</a>
-	<a href="/STORSSpringMVC/Student/display">Student</a>
-	<a href="/STORSSpringMVC/College/search">StudentList</a>
-	<a href="/STORSSpringMVC/Login/logout?operation=Logout">Logout</a>
+	<h1 align="Center">
+		<font size="10px" color="red">Welcome to ORS </font>
+	</h1>
 </body>
 
 </html>

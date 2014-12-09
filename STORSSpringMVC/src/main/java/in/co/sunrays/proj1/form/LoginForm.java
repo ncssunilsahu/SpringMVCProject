@@ -4,9 +4,8 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
- * Login Form class of project.
- * (1)It encapsulate Login attribute and populate data
- * between Form and Controller
+ * Login Form class of project. (1)It encapsulate Login attribute and populate
+ * data between Form and Controller
  * 
  * (2) Apply Validation at Login Form
  * 

@@ -43,11 +43,11 @@
 			</tr>
 
 			<tr>
-				<td><form:label path="login">
-						<spring:message code="label.login" />
+				<td><form:label path="emailId">
+						<spring:message code="label.emailId" />
 					</form:label></td>
-				<td><form:input path="login" /></td>
-				<td><form:errors path="login" cssClass="error" /></td>
+				<td><form:input path="emailId" /></td>
+				<td><form:errors path="emailId" cssClass="error" /></td>
 			</tr>
 
 			<tr>
@@ -56,6 +56,13 @@
 					</form:label></td>
 				<td><form:input path="password" /></td>
 				<td><form:errors path="password" cssClass="error" /></td>
+			</tr>
+			<tr>
+				<td><form:label path="gender">
+						<spring:message code="label.gender" />
+					</form:label></td>
+				<td><form:radiobutton path="gender" value="Male" />Male<form:radiobutton
+						path="gender" value="Female" />Female</td>
 			</tr>
 			<tr>
 				<td><form:label path="dob">

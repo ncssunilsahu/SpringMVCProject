@@ -1,6 +1,6 @@
 package in.co.sunrays.proj1.dao;
 
-import in.co.sunrays.proj1.dto.StudentDTO;
+import in.co.sunrays.proj1.dto.RoleDTO;
 import in.co.sunrays.proj1.exception.DatabaseException;
 import java.util.List;
 import org.hibernate.Criteria;
@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 /**
- * Hibernate Implementation of StudentDAO
+ * Hibernate Implementation of RoleDAO
  * 
  * @version 1.0
  * @since 16 Nov 2014
@@ -19,121 +19,127 @@ import org.springframework.stereotype.Repository;
  * @Copyright (c) sunRays Technologies. All rights reserved.
  * @URL www.sunrays.co.in
  */
-@Repository("studentDAO")
-public class StudentDAOHibImpl implements StudentDAOInt {
+
+@Repository("roleDAO")
+public class RoleDAOHibImpl implements RoleDAOInt {
 
 	@Autowired
 	private SessionFactory sessionFactory;
 
 	/**
-	 * Add a Student
+	 * Add a Role
 	 * 
 	 * @param dto
 	 * @throws DatabaseException
 	 */
-	public long add(StudentDTO dto) throws DatabaseException {
-		System.out.println("DAO add Started");
+	public long add(RoleDTO dto) throws DatabaseException {
+
 		long pk = 0;
 		try {
 			pk = (Long) sessionFactory.getCurrentSession().save(dto);
 		} catch (HibernateException e) {
 			System.out.println("Database Exception.." + e);
-			throw new DatabaseException("Exception : Exception in add Student");
+			throw new DatabaseException("Exception in Role add");
 		}
 		System.out.println("DAO add End");
 		return pk;
 	}
 
 	/**
-	 * Update a Student
+	 * Update a Role
 	 * 
 	 * @param dto
 	 * @throws DatabaseException
 	 */
-	public void update(StudentDTO dto) throws DatabaseException {
+	public void update(RoleDTO dto) throws DatabaseException {
+
 		System.out.println("DAO update Started");
 		try {
 			sessionFactory.getCurrentSession().update(dto);
 		} catch (HibernateException e) {
 			System.out.println("Database Exception.." + e);
-			throw new DatabaseException(
-					"Exception : Exception in update Student");
+			throw new DatabaseException("Exception in Role Update");
 		}
 		System.out.println("DAO update End");
 	}
 
 	/**
-	 * Delete a Student
+	 * Delete a Role
 	 * 
 	 * @param dto
 	 * @throws DatabaseException
 	 */
-	public void delete(StudentDTO dto) throws DatabaseException {
+
+	public void delete(RoleDTO dto) throws DatabaseException {
 		System.out.println("DAO delete Started");
 		try {
 			sessionFactory.getCurrentSession().delete(dto);
 		} catch (HibernateException e) {
 			System.out.println("Database Exception.." + e);
-			throw new DatabaseException(
-					"Exception : Exception in delete Student");
+			throw new DatabaseException("Exception in Role delete");
 		}
 		System.out.println("DAO delete End");
 	}
 
 	/**
-	 * Find Student by Email
+	 * Find Role by Name
 	 * 
-	 * @param email
+	 * @param name
 	 *            : get parameter
 	 * @return dto
 	 * @throws DatabaseException
 	 */
-	public StudentDTO findByEmail(String email) throws DatabaseException {
-		System.out.println("DAO findByEmail Started");
-		StudentDTO dto = null;
+	public RoleDTO findByName(String name) throws DatabaseException {
+
+		System.out.println("DAO findByName Started");
+		RoleDTO dto = null;
 		try {
 			List list = sessionFactory.getCurrentSession()
-					.createCriteria(StudentDTO.class)
-					.add(Restrictions.eq("email", email)).list();
+					.createCriteria(RoleDTO.class)
+					.add(Restrictions.eq("name", name)).list();
+
+			System.out.println("list size in find by name dao" + list.size());
 			if (list.size() == 1) {
-				dto = (StudentDTO) list.get(0);
+				dto = (RoleDTO) list.get(0);
+				System.out.println("DTO not null");
 			}
-		} catch (HibernateException e) {
+		} catch (Exception e) {
+			e.printStackTrace();
 			System.out.println("Database Exception.." + e);
-			throw new DatabaseException(
-					"Exception : Exception in getting Student by email");
+			throw new DatabaseException("Exception in getting Role by name");
 		}
-		System.out.println("DAO findByEmail End");
+		System.out.println("DAO findByName End");
 		return dto;
 	}
 
 	/**
-	 * Find Student by PK
+	 * Find Role by PK
 	 * 
 	 * @param pk
 	 *            : get parameter
 	 * @return dto
 	 * @throws DatabaseException
 	 */
-	public StudentDTO findByPK(long pk) throws DatabaseException {
+	public RoleDTO findByPK(long pk) throws DatabaseException {
+
 		System.out.println("DAO findByPK Started");
-		StudentDTO dto = null;
+		RoleDTO dto = null;
 		try {
-			dto = (StudentDTO) sessionFactory.getCurrentSession().get(
-					StudentDTO.class, pk);
+			dto = (RoleDTO) sessionFactory.getCurrentSession().get(
+					RoleDTO.class, pk);
 		} catch (HibernateException e) {
 			System.out.println("Database Exception.." + e);
 			throw new DatabaseException(
-					"Exception : Exception in getting Student by pk");
+					"Exception : Exception in getting Role by pk");
 		}
 		System.out.println("DAO findByPK End");
 		return dto;
 	}
 
 	/**
-	 * Search Student with pagination
+	 * Search Roles with pagination
 	 * 
-	 * @return list : List of Student
+	 * @return list : List of Role
 	 * @param dto
 	 *            : Search Parameters
 	 * @param pageNo
@@ -142,66 +148,56 @@ public class StudentDAOHibImpl implements StudentDAOInt {
 	 *            : Size of Page
 	 * @throws DatabaseException
 	 */
-	public List search(StudentDTO dto, int pageNo, int pageSize)
+	public List search(RoleDTO dto, int pageNo, int pageSize)
 			throws DatabaseException {
+
 		System.out.println("DAO search Started");
+
+		Criteria c = sessionFactory.getCurrentSession().createCriteria(
+				RoleDTO.class);
+
+		if (dto.getId() > 0) {
+			c.add(Restrictions.eq("id", dto.getId()));
+		}
+		if (dto.getName() != null && dto.getName().length() > 0) {
+			c.add(Restrictions.like("name", dto.getName() + "%"));
+		}
+		if (dto.getDescription() != null && dto.getDescription().length() > 0) {
+			c.add(Restrictions.like("description", dto.getDescription() + "%"));
+		}
+		// if page size is greater than zero then apply pagination
+		if (pageSize > 0) {
+			c.setFirstResult((pageNo - 1) * pageSize);
+			c.setMaxResults(pageSize);
+		}
 		List list = null;
 		try {
-			Criteria criteria = sessionFactory.getCurrentSession()
-					.createCriteria(StudentDTO.class);
-			if (dto.getId() > 0) {
-				criteria.add(Restrictions.eq("id", dto.getId()));
-			}
-			if (dto.getFirstName() != null && dto.getFirstName().length() > 0) {
-				criteria.add(Restrictions.like("firstName", dto.getFirstName()
-						+ "%"));
-			}
-			if (dto.getLastName() != null && dto.getLastName().length() > 0) {
-				criteria.add(Restrictions.like("lastName", dto.getLastName()
-						+ "%"));
-			}
-			if (dto.getDob() != null) {
-				criteria.add(Restrictions.eq("dob", dto.getDob()));
-			}
-			if (dto.getMobileNo() != null && dto.getMobileNo().length() > 0) {
-				criteria.add(Restrictions.like("mobileNo", dto.getMobileNo()
-						+ "%"));
-			}
-			if (dto.getEmail() != null && dto.getEmail().length() > 0) {
-				criteria.add(Restrictions.like("email", dto.getEmail() + "%"));
-			}
-			// if page size is greater than zero the apply pagination
-			// if page size is greater than zero then apply pagination
-			if (pageSize > 0) {
-				criteria.setFirstResult((pageNo - 1) * pageSize);
-				criteria.setMaxResults(pageSize);
-			}
-
-			list = criteria.list();
-		} catch (HibernateException e) {
+			list = c.list();
+			System.out.println("Session Factory in search :" + sessionFactory);
+		} catch (Exception e) {
 			System.out.println("Database Exception.." + e);
-			throw new DatabaseException("Exception in search Student");
+			throw new DatabaseException("Exception : Exception in search role");
 		}
 		System.out.println("DAO search End");
 		return list;
 	}
 
 	/**
-	 * Search Students
+	 * Search Roles
 	 * 
-	 * @return list : List of Student
+	 * @return list : List of Role
 	 * @param dto
 	 *            : Search Parameters
 	 * @throws DatabaseException
 	 */
-	public List search(StudentDTO dto) throws DatabaseException {
+	public List search(RoleDTO dto) throws DatabaseException {
 		return search(dto, 0, 0);
 	}
 
 	/**
-	 * Gets List of Student
+	 * Get List of Roles
 	 * 
-	 * @return list : List of Students
+	 * @return list : List of Roles
 	 * @throws DatabaseException
 	 */
 	public List list() throws DatabaseException {
@@ -209,9 +205,9 @@ public class StudentDAOHibImpl implements StudentDAOInt {
 	}
 
 	/**
-	 * Get List of Students with pagination
+	 * Get List of Roles with pagination
 	 * 
-	 * @return list : List of Students
+	 * @return list : List of Roles
 	 * @param pageNo
 	 *            : Current Page No.
 	 * @param pageSize
@@ -219,12 +215,16 @@ public class StudentDAOHibImpl implements StudentDAOInt {
 	 * @throws DatabaseException
 	 */
 	public List list(int pageNo, int pageSize) throws DatabaseException {
+
 		System.out.println("DAO list Started");
 		List list = null;
 		try {
 			Criteria c = sessionFactory.getCurrentSession().createCriteria(
-					StudentDTO.class);
+					RoleDTO.class);
 			// if page size is greater than zero then apply pagination
+
+			System.out.println(pageNo);
+			System.out.println(pageSize);
 			if (pageSize > 0) {
 				pageNo = (pageNo - 1) * pageSize;
 				c.setFirstResult(pageNo);
@@ -238,10 +238,9 @@ public class StudentDAOHibImpl implements StudentDAOInt {
 		} catch (HibernateException e) {
 			System.out.println("Database Exception.." + e);
 			throw new DatabaseException(
-					"Exception : Exception in  Student list");
+					"Exception : Exception in  college list");
 		}
 		System.out.println("DAO list End");
 		return list;
 	}
-
 }

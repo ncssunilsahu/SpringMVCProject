@@ -12,27 +12,21 @@
 
 	<form:form action="search" commandName="form" method="post">
 
-		<form:input path="firstName" />
+		<form:input path="name" />
 		<input type="submit" value="Go" name="operation">
 		<table border="1">
 			<s:if test="${!empty form.dtoList}">
 				<tr>
 					<th>ID</th>
-					<th>First Name</th>
-					<th>Last Name</th>
-					<th>Email Id</th>
-					<th>Gender</th>
-					<th>Mobile No</th>
+					<th>Name</th>
+					<th>Description</th>
 				</tr>
 
-				<s:forEach items="${form.dtoList}" var="user">
+				<s:forEach items="${form.dtoList}" var="role">
 					<tr>
-						<td><s:out value="${user.id}" /></td>
-						<td><s:out value="${user.firstName}" /></td>
-						<td><s:out value="${user.lastName}" /></td>
-						<td><s:out value="${user.emailId}" /></td>
-						<td><s:out value="${user.gender}" /></td>
-						<td><s:out value="${user.mobileNo}"></s:out></td>
+						<td><s:out value="${role.id}" /></td>
+						<td><s:out value="${role.name}" /></td>
+						<td><s:out value="${role.description}" /></td>
 					</tr>
 				</s:forEach>
 			</s:if>

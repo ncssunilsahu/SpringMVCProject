@@ -3,6 +3,7 @@ package in.co.sunrays.proj1.form;
 import java.sql.Timestamp;
 import java.util.Date;
 
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
@@ -41,12 +42,12 @@ public class UserForm extends BaseForm {
 	/**
 	 * Login of User
 	 */
-	@NotEmpty
-	private String login;
+	@Email(message = "Enter Valid EmailId")
+	private String emailId;
 	/**
 	 * Password of User
 	 */
-	@NotEmpty
+	@NotEmpty(message = "Password Can not be null")
 	private String password;
 	/**
 	 * Date of Birth of User
@@ -105,12 +106,12 @@ public class UserForm extends BaseForm {
 		this.lastName = lastName;
 	}
 
-	public String getLogin() {
-		return login;
+	public String getEmailId() {
+		return emailId;
 	}
 
-	public void setLogin(String login) {
-		this.login = login;
+	public void setEmailId(String emailId) {
+		this.emailId = emailId;
 	}
 
 	public String getPassword() {

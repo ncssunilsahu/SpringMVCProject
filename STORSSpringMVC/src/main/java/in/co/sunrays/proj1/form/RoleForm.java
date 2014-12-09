@@ -3,8 +3,8 @@ package in.co.sunrays.proj1.form;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
- * Role Form class of project. (1)It encapsulate Role attribute and
- * populate data between Form and Controller
+ * Role Form class of project. (1)It encapsulate Role attribute and populate
+ * data between Form and Controller
  * 
  * (2)Apply Validation at Role Form
  * 

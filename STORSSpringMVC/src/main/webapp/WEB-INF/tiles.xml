@@ -50,4 +50,11 @@
 	<definition name="UserList" extends="BaseLayout">
 		<put-attribute name="body" value="/WEB-INF/pages/UserList.jsp" />
 	</definition>
+	<definition name="Role" extends="BaseLayout">
+		<put-attribute name="body" value="/WEB-INF/pages/Role.jsp" />
+	</definition>
+
+	<definition name="RoleList" extends="BaseLayout">
+		<put-attribute name="body" value="/WEB-INF/pages/RoleList.jsp" />
+	</definition>
 </tiles-definitions>
