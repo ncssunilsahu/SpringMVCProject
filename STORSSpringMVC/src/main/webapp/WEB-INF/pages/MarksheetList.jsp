@@ -12,32 +12,32 @@
 
 	<form:form action="search" commandName="form" method="post">
 
-		<form:input path="name" />
+		<form:input path="rollNo" />
 		<input type="submit" value="Go" name="operation">
 		<table border="1">
 			<s:if test="${!empty form.dtoList}">
 				<tr>
 					<th>ID</th>
+					<th>RollNo</th>
 					<th>Name</th>
-					<th>Address</th>
-					<th>State</th>
-					<th>City</th>
-					<th>Phone</th>
+					<th>Physics</th>
+					<th>Chemistry</th>
+					<th>Maths</th>
 					<th>Actions on Row</th>
 				</tr>
 
-				<s:forEach items="${form.dtoList}" var="college">
+				<s:forEach items="${form.dtoList}" var="marksheet">
 					<tr>
-						<td><s:out value="${college.id}" /></td>
-						<td><s:out value="${college.name}" /></td>
-						<td><s:out value="${college.address}" /></td>
-						<td><s:out value="${college.state}" /></td>
-						<td><s:out value="${college.city}" /></td>
-						<td><s:out value="${college.phoneNo}"></s:out></td>
+						<td><s:out value="${marksheet.id}" /></td>
+						<td><s:out value="${marksheet.rollNo}" /></td>
+						<td><s:out value="${marksheet.name}" /></td>
+						<td><s:out value="${marksheet.physics}" /></td>
+						<td><s:out value="${marksheet.chemistry}" /></td>
+						<td><s:out value="${marksheet.maths}"></s:out></td>
 						<td align="center"><a
-							href="/STORSSpringMVC/College/display?id=${college.id}">Edit</a>
+							href="/STORSSpringMVC/Marksheet/display?id=${marksheet.id}">Edit</a>
 							| <a
-							href="/STORSSpringMVC/College/search?id=${college.id}&operation=Delete">Delete</a></td>
+							href="/STORSSpringMVC/Marksheet/search?id=${marksheet.id}&operation=Delete">Delete</a></td>
 					</tr>
 				</s:forEach>
 			</s:if>

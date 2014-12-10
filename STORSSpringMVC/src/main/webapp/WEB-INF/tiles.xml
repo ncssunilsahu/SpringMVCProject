@@ -57,4 +57,12 @@
 	<definition name="RoleList" extends="BaseLayout">
 		<put-attribute name="body" value="/WEB-INF/pages/RoleList.jsp" />
 	</definition>
+
+	<definition name="Marksheet" extends="BaseLayout">
+		<put-attribute name="body" value="/WEB-INF/pages/Marksheet.jsp" />
+	</definition>
+
+	<definition name="MarksheetList" extends="BaseLayout">
+		<put-attribute name="body" value="/WEB-INF/pages/MarksheetList.jsp" />
+	</definition>
 </tiles-definitions>

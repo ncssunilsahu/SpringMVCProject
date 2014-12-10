@@ -1,8 +1,9 @@
 package in.co.sunrays.proj1.dao;
 
-import java.util.List;
 import in.co.sunrays.proj1.dto.MarksheetDTO;
 import in.co.sunrays.proj1.exception.DatabaseException;
+import in.co.sunrays.proj1.exception.DuplicateRecordException;
+import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
@@ -164,41 +165,39 @@ public class MarksheetDAOHibImpl implements MarksheetDAOInt {
 	public List search(MarksheetDTO dto, int pageNo, int pageSize)
 			throws DatabaseException {
 		System.out.println("DAO search Started");
-
-		Criteria c = sessionFactory.getCurrentSession().createCriteria(
-				MarksheetDTO.class);
-
-		if (dto.getId() > 0) {
-			c.add(Restrictions.eq("id", dto.getId()));
-		}
-		if (dto.getName() != null && dto.getName().length() > 0) {
-			c.add(Restrictions.like("name", dto.getName() + "%"));
-		}
-		if (dto.getRollNo() != null && dto.getRollNo().length() > 0) {
-			c.add(Restrictions.like("rollNo", dto.getRollNo() + "%"));
-		}
-		if (dto.getPhysics() != null && dto.getPhysics() > 0) {
-			c.add(Restrictions.eq("physics", dto.getPhysics()));
-		}
-		if (dto.getChemistry() != null && dto.getChemistry() > 0) {
-			c.add(Restrictions.eq("chemistry", dto.getChemistry()));
-		}
-		if (dto.getMaths() != null && dto.getMaths() > 0) {
-			c.add(Restrictions.eq("maths", dto.getMaths()));
-		}
-		// if page size is greater than zero then apply pagination
-		if (pageSize > 0) {
-			c.setFirstResult((pageNo - 1) * pageSize);
-			c.setMaxResults(pageSize);
-		}
 		List list = null;
 		try {
-			list = c.list();
-			System.out.println("Session Factory in search :" + sessionFactory);
-		} catch (Exception e) {
+			Criteria criteria = sessionFactory.getCurrentSession()
+					.createCriteria(MarksheetDTO.class);
+			if (dto.getId() > 0) {
+				criteria.add(Restrictions.eq("id", dto.getId()));
+			}
+			if (dto.getName() != null && dto.getName().length() > 0) {
+				criteria.add(Restrictions.like("name", dto.getName() + "%"));
+			}
+			if (dto.getRollNo() != null && dto.getRollNo().length() > 0) {
+				criteria.add(Restrictions.like("rollNo", dto.getRollNo() + "%"));
+			}
+			if (dto.getPhysics() != null && dto.getPhysics() > 0) {
+				criteria.add(Restrictions.eq("physics", dto.getPhysics()));
+			}
+			if (dto.getChemistry() != null && dto.getChemistry() > 0) {
+				criteria.add(Restrictions.eq("chemistry", dto.getChemistry()));
+			}
+			if (dto.getMaths() != null && dto.getMaths() > 0) {
+				criteria.add(Restrictions.eq("maths", dto.getMaths()));
+			}
+			// if page size is greater than zero the apply pagination
+			// if page size is greater than zero then apply pagination
+			if (pageSize > 0) {
+				criteria.setFirstResult((pageNo - 1) * pageSize);
+				criteria.setMaxResults(pageSize);
+			}
+
+			list = criteria.list();
+		} catch (HibernateException e) {
 			System.out.println("Database Exception.." + e);
-			throw new DatabaseException(
-					"Exception : Exception in search Marksheet");
+			throw new DatabaseException("Exception in search Marksheet");
 		}
 		System.out.println("DAO search End");
 		return list;

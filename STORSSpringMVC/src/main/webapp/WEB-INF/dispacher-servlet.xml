@@ -20,6 +20,7 @@
 			<mvc:mapping path="/Student/*" />
 			<mvc:mapping path="/College/*" />
 			<mvc:mapping path="/Welcome" />
+			<mvc:mapping path="/Marksheet/*" />
 			<bean class="in.co.sunrays.proj1.interceptor.FrontController" />
 		</mvc:interceptor>
 	</mvc:interceptors>
@@ -128,6 +129,7 @@
 				<value>in.co.sunrays.proj1.dto.StudentDTO</value>
 				<value>in.co.sunrays.proj1.dto.RoleDTO</value>
 				<value>in.co.sunrays.proj1.dto.UserDTO</value>
+				<value>in.co.sunrays.proj1.dto.MarksheetDTO</value>
 			</list>
 		</property>
 	</bean>
@@ -143,11 +145,13 @@
 	<bean id="studentService" class="in.co.sunrays.proj1.service.StudentServiceSpringImpl"></bean>
 	<bean id="userService" class="in.co.sunrays.proj1.service.UserServiceSpringImpl"></bean>
 	<bean id="roleService" class="in.co.sunrays.proj1.service.RoleServiceSpringImpl"></bean>
+	<bean id="marksheetService" class="in.co.sunrays.proj1.service.MarksheetServiceSpringImpl"></bean>
 
 	<bean id="collegeDAO" class="in.co.sunrays.proj1.dao.CollegeDAOHibImpl"></bean>
 	<bean id="studentDAO" class="in.co.sunrays.proj1.dao.StudentDAOHibImpl"></bean>
 	<bean id="userDAO" class="in.co.sunrays.proj1.dao.UserDAOHibImpl"></bean>
 	<bean id="roleDAO" class="in.co.sunrays.proj1.dao.RoleDAOHibImpl"></bean>
+	<bean id="marksheetDAO" class="in.co.sunrays.proj1.dao.MarksheetDAOHibImpl"></bean>
 
 
 </beans>

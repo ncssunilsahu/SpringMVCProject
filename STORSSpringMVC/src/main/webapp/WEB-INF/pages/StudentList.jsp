@@ -50,7 +50,6 @@
 		<form:hidden path="pageSize" />
 		<input type="submit" value="Next" name="operation">
 		<input type="submit" value="Previous" name="operation">
-		<a href="/STORSSpringMVC/Student/display">Student</a>
 	</form:form>
 </body>
 </html>
