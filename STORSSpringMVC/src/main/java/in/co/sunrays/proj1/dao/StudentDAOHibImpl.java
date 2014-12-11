@@ -53,7 +53,7 @@ public class StudentDAOHibImpl implements StudentDAOInt {
 	public void update(StudentDTO dto) throws DatabaseException {
 		System.out.println("DAO update Started");
 		try {
-			sessionFactory.getCurrentSession().update(dto);
+			sessionFactory.getCurrentSession().merge(dto);
 		} catch (HibernateException e) {
 			System.out.println("Database Exception.." + e);
 			throw new DatabaseException(
@@ -71,7 +71,11 @@ public class StudentDAOHibImpl implements StudentDAOInt {
 	public void delete(StudentDTO dto) throws DatabaseException {
 		System.out.println("DAO delete Started");
 		try {
-			sessionFactory.getCurrentSession().delete(dto);
+			sessionFactory
+					.getCurrentSession()
+					.createQuery(
+							"DELETE FROM StudentDTO WHERE id = " + dto.getId())
+					.executeUpdate();
 		} catch (HibernateException e) {
 			System.out.println("Database Exception.." + e);
 			throw new DatabaseException(

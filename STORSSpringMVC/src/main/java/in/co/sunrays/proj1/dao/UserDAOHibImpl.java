@@ -54,7 +54,7 @@ public class UserDAOHibImpl implements UserDAOInt {
 	public void update(UserDTO dto) throws DatabaseException {
 		System.out.println("DAO update Started");
 		try {
-			sessionFactory.getCurrentSession().update(dto);
+			sessionFactory.getCurrentSession().merge(dto);
 		} catch (HibernateException e) {
 			System.out.println("Database Exception.." + e);
 			throw new DatabaseException("Exception in User Update");
@@ -72,7 +72,11 @@ public class UserDAOHibImpl implements UserDAOInt {
 	public void delete(UserDTO dto) throws DatabaseException {
 		System.out.println("DAO delete Started");
 		try {
-			sessionFactory.getCurrentSession().delete(dto);
+			sessionFactory
+					.getCurrentSession()
+					.createQuery(
+							"DELETE FROM UserDTO WHERE id = " + dto.getId())
+					.executeUpdate();
 		} catch (HibernateException e) {
 			System.out.println("Database Exception.." + e);
 			throw new DatabaseException("Exception in User delete");

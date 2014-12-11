@@ -21,6 +21,7 @@ public class LoginForm extends BaseForm {
 	/**
 	 * EmailId of User
 	 */
+	@NotEmpty(message = "EmailId Can not be null")
 	@Email(message = "Enter Valid EmailId")
 	private String emailId;
 

@@ -5,7 +5,18 @@ import in.co.sunrays.proj1.exception.ApplicationException;
 import in.co.sunrays.proj1.exception.DuplicateRecordException;
 import in.co.sunrays.proj1.form.StudentForm;
 import in.co.sunrays.proj1.service.StudentServiceInt;
+
+import java.sql.Timestamp;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.validation.Valid;
+
+import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -47,13 +58,13 @@ public class StudentCtl extends BaseCtl {
 		if (id != null && id > 0) {
 			try {
 				dto = service.findByPK(id);
+				form.setId(dto.getId());
 				form.setFirstName(dto.getFirstName());
 				form.setLastName(dto.getLastName());
 				form.setCollegeName(dto.getCollegeName());
 				form.setDob(dto.getDob());
-				form.setMobileNo(dto.getMobileNo());
 				form.setEmail(dto.getEmail());
-
+				form.setMobileNo(dto.getMobileNo());
 			} catch (ApplicationException e) {
 				e.printStackTrace();
 				form.setMessage("Critical issue : " + e.getMessage());
@@ -69,14 +80,6 @@ public class StudentCtl extends BaseCtl {
 	 * @param form
 	 * @param bindingResult
 	 * @return
-	 */
-
-	/*
-	 * @RequestMapping(value = "/Student/submit", method = RequestMethod.POST)
-	 * public ModelAndView doSubmit(
-	 * 
-	 * @ModelAttribute("form") @Valid StudentForm form, BindingResult
-	 * bindingResult) {
 	 */
 
 	@RequestMapping(value = "/Student/submit", method = RequestMethod.POST)
@@ -98,9 +101,10 @@ public class StudentCtl extends BaseCtl {
 		dto.setLastName(form.getLastName());
 		dto.setCollegeName(form.getCollegeName());
 		dto.setDob(form.getDob());
-		dto.setMobileNo(form.getMobileNo());
 		dto.setEmail(form.getEmail());
-
+		dto.setMobileNo(form.getMobileNo());
+		dto.setCreatedDatetime(new Timestamp(new Date().getTime()));
+		dto.setModifiedDatetime(new Timestamp(new Date().getTime()));
 		try {
 			if (OP_SAVE.equalsIgnoreCase(form.getOperation())) {
 
@@ -123,8 +127,8 @@ public class StudentCtl extends BaseCtl {
 			System.out.println("Critical Issue " + e);
 			return new ModelAndView("Student", "form", form);
 		} catch (DuplicateRecordException e) {
-			System.out.println("Collge Name already exist." + e);
-			form.setMessage("Collge Name already exist");
+			System.out.println("Email Id already exist." + e);
+			form.setMessage("Email Id already exist");
 			return new ModelAndView("Student", "form", form);
 		}
 
@@ -141,8 +145,9 @@ public class StudentCtl extends BaseCtl {
 
 	@RequestMapping(value = "Student/search", method = { RequestMethod.GET,
 			RequestMethod.POST })
-	public ModelAndView searchList(@ModelAttribute("form") StudentForm form) {
-		System.out.println("in Studentctl searchList method");
+	public ModelAndView searchList(@ModelAttribute("form") StudentForm form,
+			@RequestParam(required = false) Long id) {
+		System.out.println("in userctl searchList method");
 		int pageNo = form.getPageNo();
 		int pageSize = form.getPageSize();
 		list = null;
@@ -160,6 +165,20 @@ public class StudentCtl extends BaseCtl {
 			}
 		}
 
+		if (OP_DELETE.equalsIgnoreCase(form.getOperation())) {
+			System.out.println("in del op");
+			System.out.println("ctl delete id is :" + id);
+			dto.setId(id);
+			try {
+				service.delete(dto);
+				long ids = 0;
+				return searchList(form, ids);
+
+			} catch (ApplicationException e) {
+				e.printStackTrace();
+			}
+
+		}
 		pageNo = (pageNo < 1) ? 1 : pageNo;
 
 		try {
@@ -183,5 +202,89 @@ public class StudentCtl extends BaseCtl {
 		System.out.println("out StudentCtl.searchList()");
 		return new ModelAndView("StudentList", "form", form);
 	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "Student/pdf")
+	public ModelAndView generatePdfReport(ModelAndView modelAndView) {
+
+		Map<String, Object> parameterMap = new HashMap<String, Object>();
+
+		List usersList;
+		try {
+			usersList = service.list();
+			JRDataSource JRdataSource = new JRBeanCollectionDataSource(
+					usersList);
+			parameterMap.put("datasource", JRdataSource);
+			// pdfReport bean has ben declared in the jasper-views.xml file
+			modelAndView = new ModelAndView("pdfReport", parameterMap);
+		} catch (ApplicationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return modelAndView;
+
+	}// generatePdfReport
+
+	@RequestMapping(method = RequestMethod.GET, value = "Student/xls")
+	public ModelAndView generateXLSReport(ModelAndView modelAndView) {
+
+		Map<String, Object> parameterMap = new HashMap<String, Object>();
+
+		List usersList;
+		try {
+			usersList = service.list();
+			JRDataSource JRdataSource = new JRBeanCollectionDataSource(
+					usersList);
+			parameterMap.put("datasource", JRdataSource);
+			// pdfReport bean has ben declared in the jasper-views.xml file
+			modelAndView = new ModelAndView("xlsReport", parameterMap);
+		} catch (ApplicationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return modelAndView;
+
+	}// generatePdfReport
+
+	@RequestMapping(method = RequestMethod.GET, value = "Student/csv")
+	public ModelAndView generateCSVReport(ModelAndView modelAndView) {
+
+		Map<String, Object> parameterMap = new HashMap<String, Object>();
+
+		List usersList;
+		try {
+			usersList = service.list();
+			JRDataSource JRdataSource = new JRBeanCollectionDataSource(
+					usersList);
+			parameterMap.put("datasource", JRdataSource);
+			// pdfReport bean has ben declared in the jasper-views.xml file
+			modelAndView = new ModelAndView("csvReport", parameterMap);
+		} catch (ApplicationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return modelAndView;
+
+	}// generatePdfReport
+
+	@RequestMapping(method = RequestMethod.GET, value = "Student/html")
+	public ModelAndView generateHTMLReport(ModelAndView modelAndView) {
+
+		Map<String, Object> parameterMap = new HashMap<String, Object>();
+
+		List usersList;
+		try {
+			usersList = service.list();
+			JRDataSource JRdataSource = new JRBeanCollectionDataSource(
+					usersList);
+			parameterMap.put("datasource", JRdataSource);
+			// pdfReport bean has ben declared in the jasper-views.xml file
+			modelAndView = new ModelAndView("htmlReport", parameterMap);
+		} catch (ApplicationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return modelAndView;
+
+	}// generatePdfReport
 
 }

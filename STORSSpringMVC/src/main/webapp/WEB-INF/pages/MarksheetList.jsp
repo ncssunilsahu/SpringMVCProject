@@ -12,7 +12,7 @@
 
 	<form:form action="search" commandName="form" method="post">
 
-		<form:input path="rollNo" />
+		<form:input path="name" />
 		<input type="submit" value="Go" name="operation">
 		<table border="1">
 			<s:if test="${!empty form.dtoList}">

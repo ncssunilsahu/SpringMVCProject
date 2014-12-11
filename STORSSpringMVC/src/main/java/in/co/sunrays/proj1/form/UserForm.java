@@ -42,6 +42,7 @@ public class UserForm extends BaseForm {
 	/**
 	 * Login of User
 	 */
+	@NotEmpty(message = "EmailId Can not be null")
 	@Email(message = "Enter Valid EmailId")
 	private String emailId;
 	/**
@@ -86,6 +87,45 @@ public class UserForm extends BaseForm {
 	 * IP Address of User of his last login
 	 */
 	private String lastLoginIP;
+
+	/**
+	 * OldPassword of User
+	 */
+	private String oldPassword;
+
+	/**
+	 * NewPassword of User
+	 */
+	private String newPassword;
+
+	/**
+	 * ConfirmPassword of User
+	 */
+	private String confirmPassword;
+
+	public String getOldPassword() {
+		return oldPassword;
+	}
+
+	public void setOldPassword(String oldPassword) {
+		this.oldPassword = oldPassword;
+	}
+
+	public String getNewPassword() {
+		return newPassword;
+	}
+
+	public void setNewPassword(String newPassword) {
+		this.newPassword = newPassword;
+	}
+
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
+	}
 
 	/**
 	 * accessor

@@ -56,7 +56,7 @@ public class MarksheetDAOHibImpl implements MarksheetDAOInt {
 
 		System.out.println("DAO update Started");
 		try {
-			sessionFactory.getCurrentSession().update(dto);
+			sessionFactory.getCurrentSession().merge(dto);
 		} catch (HibernateException e) {
 			System.out.println("Database Exception.." + e);
 			throw new DatabaseException("Exception in Marksheet Update");
@@ -75,7 +75,11 @@ public class MarksheetDAOHibImpl implements MarksheetDAOInt {
 		System.out.println("DAO delete Started");
 		try {
 			System.out.println("in dao delete pk is :" + dto.getId());
-			sessionFactory.getCurrentSession().delete(dto);
+			sessionFactory
+					.getCurrentSession()
+					.createQuery(
+							"DELETE FROM MarksheetDTO WHERE id = "
+									+ dto.getId()).executeUpdate();
 			System.out.println("in dao after delete");
 		} catch (HibernateException e) {
 			System.out.println("Database Exception.." + e);

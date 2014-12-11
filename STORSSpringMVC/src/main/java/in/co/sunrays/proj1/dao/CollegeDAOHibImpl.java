@@ -40,6 +40,7 @@ public class CollegeDAOHibImpl implements CollegeDAOInt {
 			System.out.println("Database Exception.." + e);
 			throw new DatabaseException("Exception in College add");
 		}
+		sessionFactory.close();
 		System.out.println("DAO add End");
 		return pk;
 	}
@@ -54,11 +55,13 @@ public class CollegeDAOHibImpl implements CollegeDAOInt {
 	public void update(CollegeDTO dto) throws DatabaseException {
 		System.out.println("DAO update Started");
 		try {
-			sessionFactory.getCurrentSession().update(dto);
-		} catch (HibernateException e) {
+			sessionFactory.getCurrentSession().merge(dto);
+		} catch (Exception e) {
+			e.printStackTrace();
 			System.out.println("Database Exception.." + e);
 			throw new DatabaseException("Exception in College Update");
 		}
+		sessionFactory.close();
 		System.out.println("DAO update End");
 	}
 
@@ -72,11 +75,14 @@ public class CollegeDAOHibImpl implements CollegeDAOInt {
 	public void delete(CollegeDTO dto) throws DatabaseException {
 		System.out.println("DAO delete Started");
 		try {
-			sessionFactory.getCurrentSession().delete(dto);
+			System.out.println("in dao delete pk is :" + dto.getId());
+			sessionFactory.getCurrentSession().createQuery("DELETE FROM CollegeDTO WHERE id = "+dto.getId()).executeUpdate();
+			System.out.println("in dao after delete");
 		} catch (HibernateException e) {
 			System.out.println("Database Exception.." + e);
 			throw new DatabaseException("Exception in College delete");
 		}
+		sessionFactory.close();
 		System.out.println("DAO delete End");
 	}
 

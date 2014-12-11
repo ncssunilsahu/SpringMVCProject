@@ -32,9 +32,9 @@
 									<a href="/STORSSpringMVC/Student/search"><b>StudentList</b></a>
 									&emsp;
 									<a
-										href='/ORSProject2/user/d_MyProfile?id=<s:property value="#session.user.id"/>'><b>MyProfile</b></a>
+										href="/STORSSpringMVC/MyProfile/display?id=${sessionScope.user}"><b>MyProfile</b></a>
 									&emsp;
-									<a href="/ORSProject2/user/d_ChangePassword"><b>Change
+									<a href="/STORSSpringMVC/ChangePassword/display"><b>Change
 											Password</b></a>
 									&emsp;
 									<a href="/ORSProject2/doc/index.html" target="_blank"><b>Java
@@ -42,7 +42,7 @@
 									&emsp;
 									<a href="/STORSSpringMVC/Login/logout?operation=Logout"><b>Logout</b></a>
 									<br>
-				
+
 								</c:if>
 
 								<c:if test="${sessionScope.user != 1}">
@@ -50,23 +50,23 @@
 											Marksheet</b></a>
 									&emsp;
 									<a
-										href='/ORSProject2/user/d_MyProfile?id=<s:property value="#session.user.id"/>'><b>MyProfile</b></a>
+										href="/STORSSpringMVC/MyProfile/display?id=${sessionScope.user}"><b>MyProfile</b></a>
 									&emsp;
-									<a href="/STORSSpringMVC/College/search"><b>Change
+									<a href="/STORSSpringMVC/ChangePassword/display"><b>Change
 											Password</b></a>
 									&emsp;
 									<a href="/ORSProject2/doc/index.html" target="_blank"><b>Java
 											Doc</b></a>
 									&emsp;
-									<a href="/STORSSpringMVC/Login/logout?operation=Logoutt"><b>Logout</b></a>
+									<a href="/STORSSpringMVC/Login/logout?operation=Logout"><b>Logout</b></a>
 									<br>
-							
+
 								</c:if>
 
 							</c:if> <c:if test="${sessionScope.user == null}">
 								<a href="/STORSSpringMVC/index.jsp"><b>Welcome</b></a>
 								&emsp;
-								<a href="/"><b>Login</b></a></td>
+								<a href="/STORSSpringMVC/Login/display"><b>Login</b></a></td>
 						</c:if>
 						<td width="20%">
 							<h1 align="Right">

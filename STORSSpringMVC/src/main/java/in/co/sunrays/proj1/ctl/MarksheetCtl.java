@@ -6,7 +6,14 @@ import in.co.sunrays.proj1.exception.DuplicateRecordException;
 import in.co.sunrays.proj1.form.MarksheetForm;
 import in.co.sunrays.proj1.service.MarksheetServiceInt;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.validation.Valid;
+
+import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -49,12 +56,12 @@ public class MarksheetCtl extends BaseCtl {
 		if (id != null && id > 0) {
 			try {
 				dto = service.findByPK(id);
-				form.setName(dto.getName());
+				form.setId(dto.getId());
 				form.setRollNo(dto.getRollNo());
+				form.setName(dto.getName());
 				form.setPhysics(dto.getPhysics());
 				form.setChemistry(dto.getChemistry());
 				form.setMaths(dto.getMaths());
-
 			} catch (ApplicationException e) {
 				e.printStackTrace();
 				form.setMessage("Critical issue : " + e.getMessage());
@@ -72,14 +79,6 @@ public class MarksheetCtl extends BaseCtl {
 	 * @return
 	 */
 
-	/*
-	 * @RequestMapping(value = "/Marksheet/submit", method = RequestMethod.POST)
-	 * public ModelAndView doSubmit(
-	 * 
-	 * @ModelAttribute("form") @Valid MarksheetForm form, BindingResult
-	 * bindingResult) {
-	 */
-
 	@RequestMapping(value = "/Marksheet/submit", method = RequestMethod.POST)
 	public ModelAndView doSubmit(
 			@ModelAttribute("form") @Valid MarksheetForm form,
@@ -95,16 +94,16 @@ public class MarksheetCtl extends BaseCtl {
 		}
 
 		dto.setId(form.getId());
-		dto.setName(form.getName());
 		dto.setRollNo(form.getRollNo());
+		dto.setName(form.getName());
 		dto.setPhysics(form.getPhysics());
 		dto.setChemistry(form.getChemistry());
 		dto.setMaths(form.getMaths());
-
 		try {
 			if (OP_SAVE.equalsIgnoreCase(form.getOperation())) {
 
 				System.out.println("in MarksheetCtl add operation");
+
 				if (dto.getId() > 0) {
 					service.update(dto);
 					form.setMessage("Data is Updated Successfully");
@@ -112,6 +111,7 @@ public class MarksheetCtl extends BaseCtl {
 					Long id = service.add(dto);
 					System.out.println(id + " data inserted");
 					form.setMessage("Data is Added Successfully");
+					form.setId(id);
 				}
 			} else if (OP_DELETE.equalsIgnoreCase(form.getOperation())) {
 				service.delete(dto);
@@ -141,8 +141,9 @@ public class MarksheetCtl extends BaseCtl {
 
 	@RequestMapping(value = "Marksheet/search", method = { RequestMethod.GET,
 			RequestMethod.POST })
-	public ModelAndView searchList(@ModelAttribute("form") MarksheetForm form) {
-		System.out.println("in Marksheetctl searchList method");
+	public ModelAndView searchList(@ModelAttribute("form") MarksheetForm form,
+			@RequestParam(required = false) Long id) {
+		System.out.println("in marksheetctl searchList method");
 		int pageNo = form.getPageNo();
 		int pageSize = form.getPageSize();
 		list = null;
@@ -160,6 +161,20 @@ public class MarksheetCtl extends BaseCtl {
 			}
 		}
 
+		if (OP_DELETE.equalsIgnoreCase(form.getOperation())) {
+			System.out.println("in del op");
+			System.out.println("ctl delete id is :" + id);
+			dto.setId(id);
+			try {
+				service.delete(dto);
+				long ids = 0;
+				return searchList(form, ids);
+
+			} catch (ApplicationException e) {
+				e.printStackTrace();
+			}
+
+		}
 		pageNo = (pageNo < 1) ? 1 : pageNo;
 
 		try {
@@ -183,5 +198,89 @@ public class MarksheetCtl extends BaseCtl {
 		System.out.println("out MarksheetCtl.searchList()");
 		return new ModelAndView("MarksheetList", "form", form);
 	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "Marksheet/pdf")
+	public ModelAndView generatePdfReport(ModelAndView modelAndView) {
+
+		Map<String, Object> parameterMap = new HashMap<String, Object>();
+
+		List usersList;
+		try {
+			usersList = service.list();
+			JRDataSource JRdataSource = new JRBeanCollectionDataSource(
+					usersList);
+			parameterMap.put("datasource", JRdataSource);
+			// pdfReport bean has ben declared in the jasper-views.xml file
+			modelAndView = new ModelAndView("pdfReport", parameterMap);
+		} catch (ApplicationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return modelAndView;
+
+	}// generatePdfReport
+
+	@RequestMapping(method = RequestMethod.GET, value = "Marksheet/xls")
+	public ModelAndView generateXLSReport(ModelAndView modelAndView) {
+
+		Map<String, Object> parameterMap = new HashMap<String, Object>();
+
+		List usersList;
+		try {
+			usersList = service.list();
+			JRDataSource JRdataSource = new JRBeanCollectionDataSource(
+					usersList);
+			parameterMap.put("datasource", JRdataSource);
+			// pdfReport bean has ben declared in the jasper-views.xml file
+			modelAndView = new ModelAndView("xlsReport", parameterMap);
+		} catch (ApplicationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return modelAndView;
+
+	}// generatePdfReport
+
+	@RequestMapping(method = RequestMethod.GET, value = "Marksheet/csv")
+	public ModelAndView generateCSVReport(ModelAndView modelAndView) {
+
+		Map<String, Object> parameterMap = new HashMap<String, Object>();
+
+		List usersList;
+		try {
+			usersList = service.list();
+			JRDataSource JRdataSource = new JRBeanCollectionDataSource(
+					usersList);
+			parameterMap.put("datasource", JRdataSource);
+			// pdfReport bean has ben declared in the jasper-views.xml file
+			modelAndView = new ModelAndView("csvReport", parameterMap);
+		} catch (ApplicationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return modelAndView;
+
+	}// generatePdfReport
+
+	@RequestMapping(method = RequestMethod.GET, value = "Marksheet/html")
+	public ModelAndView generateHTMLReport(ModelAndView modelAndView) {
+
+		Map<String, Object> parameterMap = new HashMap<String, Object>();
+
+		List usersList;
+		try {
+			usersList = service.list();
+			JRDataSource JRdataSource = new JRBeanCollectionDataSource(
+					usersList);
+			parameterMap.put("datasource", JRdataSource);
+			// pdfReport bean has ben declared in the jasper-views.xml file
+			modelAndView = new ModelAndView("htmlReport", parameterMap);
+		} catch (ApplicationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return modelAndView;
+
+	}// generatePdfReport
 
 }

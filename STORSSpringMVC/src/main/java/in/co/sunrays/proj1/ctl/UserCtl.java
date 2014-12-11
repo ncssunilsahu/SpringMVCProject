@@ -3,6 +3,7 @@ package in.co.sunrays.proj1.ctl;
 import in.co.sunrays.proj1.dto.UserDTO;
 import in.co.sunrays.proj1.exception.ApplicationException;
 import in.co.sunrays.proj1.exception.DuplicateRecordException;
+import in.co.sunrays.proj1.form.LoginForm;
 import in.co.sunrays.proj1.form.RoleForm;
 import in.co.sunrays.proj1.form.UserForm;
 import in.co.sunrays.proj1.service.UserServiceInt;
@@ -65,6 +66,7 @@ public class UserCtl extends BaseCtl {
 				form.setDob(dto.getDob());
 				form.setEmailId(dto.getEmailId());
 				form.setGender(dto.getGender());
+				form.setPassword(dto.getPassword());
 				form.setMobileNo(dto.getMobileNo());
 			} catch (ApplicationException e) {
 				e.printStackTrace();
@@ -148,7 +150,8 @@ public class UserCtl extends BaseCtl {
 
 	@RequestMapping(value = "User/search", method = { RequestMethod.GET,
 			RequestMethod.POST })
-	public ModelAndView searchList(@ModelAttribute("form") UserForm form) {
+	public ModelAndView searchList(@ModelAttribute("form") UserForm form,
+			@RequestParam(required = false) Long id) {
 		System.out.println("in userctl searchList method");
 		int pageNo = form.getPageNo();
 		int pageSize = form.getPageSize();
@@ -167,6 +170,20 @@ public class UserCtl extends BaseCtl {
 			}
 		}
 
+		if (OP_DELETE.equalsIgnoreCase(form.getOperation())) {
+			System.out.println("in del op");
+			System.out.println("ctl delete id is :" + id);
+			dto.setId(id);
+			try {
+				service.delete(dto);
+				long ids = 0;
+				return searchList(form, ids);
+
+			} catch (ApplicationException e) {
+				e.printStackTrace();
+			}
+
+		}
 		pageNo = (pageNo < 1) ? 1 : pageNo;
 
 		try {

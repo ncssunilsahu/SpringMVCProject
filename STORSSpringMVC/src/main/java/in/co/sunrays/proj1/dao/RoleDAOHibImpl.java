@@ -55,7 +55,7 @@ public class RoleDAOHibImpl implements RoleDAOInt {
 
 		System.out.println("DAO update Started");
 		try {
-			sessionFactory.getCurrentSession().update(dto);
+			sessionFactory.getCurrentSession().merge(dto);
 		} catch (HibernateException e) {
 			System.out.println("Database Exception.." + e);
 			throw new DatabaseException("Exception in Role Update");
@@ -73,7 +73,11 @@ public class RoleDAOHibImpl implements RoleDAOInt {
 	public void delete(RoleDTO dto) throws DatabaseException {
 		System.out.println("DAO delete Started");
 		try {
-			sessionFactory.getCurrentSession().delete(dto);
+			sessionFactory
+					.getCurrentSession()
+					.createQuery(
+							"DELETE FROM RoleDTO WHERE id = " + dto.getId())
+					.executeUpdate();
 		} catch (HibernateException e) {
 			System.out.println("Database Exception.." + e);
 			throw new DatabaseException("Exception in Role delete");
