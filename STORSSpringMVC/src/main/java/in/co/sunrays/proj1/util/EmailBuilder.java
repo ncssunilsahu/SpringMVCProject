@@ -26,7 +26,7 @@ public class EmailBuilder {
 		msg.append("<H1>Hi! Greetings from SUNRAYS Technologies!</H1>");
 		msg.append("<P>Congratulations for registering on ORS! You can now access your ORS account online - anywhere, anytime and enjoy the flexibility to check the Marksheet Details.</P>");
 		msg.append("<P>Log in today at <a href='http://ors.sunraystechnologies.com'>http://ors.sunraystechnologies.com</a> with your following credentials:</P>");
-		msg.append("<P><B>Login Id : " + map.get("login") + "<BR>"
+		msg.append("<P><B>Login Id : " + map.get("emailId") + "<BR>"
 				+ " Password : " + map.get("password") + "</B></p>");
 
 		msg.append("<P> As a security measure, we recommended that you change your password after you first log in.</p>");
@@ -53,7 +53,7 @@ public class EmailBuilder {
 		msg.append("<H1>Your password is reccovered !! " + map.get("firstName")
 				+ " " + map.get("lastName") + "</H1>");
 		msg.append("<P><B>To access account user Login Id : "
-				+ map.get("login") + "<BR>" + " Password : "
+				+ map.get("emailId") + "<BR>" + " Password : "
 				+ map.get("password") + "</B></p>");
 		msg.append("</BODY></HTML>");
 
@@ -73,7 +73,7 @@ public class EmailBuilder {
 		msg.append("<H1>Your Password has been changed Successfully !! "
 				+ map.get("firstName") + " " + map.get("lastName") + "</H1>");
 		msg.append("<P><B>To access account user Login Id : "
-				+ map.get("login") + "<BR>" + " Password : "
+				+ map.get("emailId") + "<BR>" + " Password : "
 				+ map.get("password") + "</B></p>");
 		msg.append("</BODY></HTML>");
 

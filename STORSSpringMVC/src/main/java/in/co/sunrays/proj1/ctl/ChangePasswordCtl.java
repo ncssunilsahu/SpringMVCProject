@@ -11,6 +11,7 @@ import in.co.sunrays.proj1.service.UserServiceInt;
 import java.sql.Timestamp;
 import java.util.Date;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +48,6 @@ public class ChangePasswordCtl extends BaseCtl {
 
 	@RequestMapping(value = "/ChangePassword/display", method = RequestMethod.GET)
 	public ModelAndView doDisplay(@RequestParam(required = false) Long id) {
-		// @RequestParam(value="0", required = false) Long id) {
 		System.out.println("In ChangePasswordCtl.doDisplay()" + id);
 		UserForm form = new UserForm();
 		UserDTO dto = new UserDTO();
@@ -56,9 +56,6 @@ public class ChangePasswordCtl extends BaseCtl {
 				dto = service.findByPK(id);
 				form.setId(dto.getId());
 				form.setEmailId(dto.getEmailId());
-				// form.setOldPassword(dto.getOldPassword());
-				// form.setNewPassword(dto.getNewPassword());
-				// form.setConfirmPassword(dto.getConfirmPassword());
 			} catch (ApplicationException e) {
 				e.printStackTrace();
 				form.setMessage("Critical issue : " + e.getMessage());
@@ -77,32 +74,30 @@ public class ChangePasswordCtl extends BaseCtl {
 	 */
 
 	@RequestMapping(value = "/ChangePassword/submit", method = RequestMethod.POST)
-	public ModelAndView doSubmit(@ModelAttribute("form") @Valid UserForm form,
-			BindingResult bindingResult) {
+	public ModelAndView doSubmit(@ModelAttribute("form")  @Valid UserForm form,BindingResult bindingResult,
+			@RequestParam(required = false) Long id, String oldPassword,
+			String newPassword,HttpSession session) {
+		System.out.println("Session value :"
+				+ session.getAttribute("userId"));
+		id=(Long) session.getAttribute("userId");
 		System.out.println("In ChangePasswordCtl.doSubmit()");
-		UserDTO dto = new UserDTO();
+		System.out.println("id" + form.getId());
+		System.out.println("oldPassword" + oldPassword);
+		System.out.println("newPassword" + newPassword);
 
-		System.out.println("result Fail :" + bindingResult.hasErrors());
-
-		dto.setId(form.getId());
-		// dto.setNewPassword(form.getNewPassword());
-		// dto.setOldPassword(form.getOldPassword());
-		// dto.setConfirmPassword(form.getConfirmPassword());
-		dto.setCreatedDatetime(new Timestamp(new Date().getTime()));
-		dto.setModifiedDatetime(new Timestamp(new Date().getTime()));
-		dto.setRoleId(RoleForm.ROLE_STUDENT);
 		try {
 			if (OP_SAVE.equalsIgnoreCase(form.getOperation())) {
 
 				System.out.println("in ChangePasswordCtl add operation");
 				try {
-					/*
-					 * service.changePassword(dto.getId(), dto.getOldPassword(),
-					 * dto.getNewPassword());
-					 */
-					form.setMessage("Data is Updated Successfully");
-				} catch (Exception e) {
-					e.printStackTrace();
+
+					service.changePassword(id, oldPassword, newPassword);
+
+					form.setMessage("Password Change Successfully");
+				} catch (RecordNotFoundException e) {
+					form.setMessage("Old Password not match.");
+				}catch (ApplicationException e) {
+					System.out.println("Critical Issue " + e);
 				}
 			}
 

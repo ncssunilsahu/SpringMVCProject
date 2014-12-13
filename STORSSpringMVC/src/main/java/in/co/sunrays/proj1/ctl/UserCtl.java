@@ -117,7 +117,7 @@ public class UserCtl extends BaseCtl {
 					service.update(dto);
 					form.setMessage("Data is Updated Successfully");
 				} else {
-					Long id = service.add(dto);
+					Long id = service.registerUser(dto);
 					System.out.println(id + " data inserted");
 					form.setMessage("Data is Added Successfully");
 					return new ModelAndView("Login", "form", form);

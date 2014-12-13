@@ -37,7 +37,7 @@
 									<a href="/STORSSpringMVC/ChangePassword/display"><b>Change
 											Password</b></a>
 									&emsp;
-									<a href="/ORSProject2/doc/index.html" target="_blank"><b>Java
+									<a href="/STORSSpringMVC/resources/doc/index.html" target="_blank"><b>Java
 											Doc</b></a>
 									&emsp;
 									<a href="/STORSSpringMVC/Login/logout?operation=Logout"><b>Logout</b></a>
@@ -55,7 +55,7 @@
 									<a href="/STORSSpringMVC/ChangePassword/display"><b>Change
 											Password</b></a>
 									&emsp;
-									<a href="/ORSProject2/doc/index.html" target="_blank"><b>Java
+									<a href="/STORSSpringMVC/resources/doc/index.html" target="_blank"><b>Java
 											Doc</b></a>
 									&emsp;
 									<a href="/STORSSpringMVC/Login/logout?operation=Logout"><b>Logout</b></a>

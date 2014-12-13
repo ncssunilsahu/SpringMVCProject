@@ -27,7 +27,7 @@ public class EmailUtility {
 	 * Create Resource Bundle to read properties file
 	 */
 	static ResourceBundle rb = ResourceBundle
-			.getBundle("in.co.sunrays.proj2.bundle.system");
+			.getBundle("in.co.sunrays.proj1.bundle.system");
 
 	/**
 	 * Email Server
@@ -47,12 +47,12 @@ public class EmailUtility {
 	/**
 	 * Administrator's email id by which all messages are sent
 	 */
-	private static final String emailFromAddress = rb.getString("email.login");
+	private static final String emailFromAddress = rb.getString("email.emailId");
 
 	/**
 	 * Administrator email's password
 	 */
-	private static final String emailPassword = rb.getString("email.pwd");
+	private static final String emailPassword = rb.getString("email.password");
 
 	/**
 	 * Email server properties

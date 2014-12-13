@@ -71,7 +71,8 @@ public class CollegeServiceSpringImpl implements CollegeServiceInt {
 				throw new DuplicateRecordException("Duplicate Roll Number");
 			}
 			dao.update(dto);
-		} catch (DatabaseException e) {
+		} catch (Exception e) {
+			e.printStackTrace();
 			System.out.println("Application Exception.." + e);
 			throw new ApplicationException("Database Exception");
 		}

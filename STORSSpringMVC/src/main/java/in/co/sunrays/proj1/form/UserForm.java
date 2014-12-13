@@ -3,6 +3,8 @@ package in.co.sunrays.proj1.form;
 import java.sql.Timestamp;
 import java.util.Date;
 
+import javax.validation.constraints.AssertTrue;
+
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -18,7 +20,6 @@ import org.hibernate.validator.constraints.NotEmpty;
  * @Copyright (c) sunRays Technologies. All rights reserved.
  * @URL www.sunrays.co.in
  */
-
 public class UserForm extends BaseForm {
 
 	/**
@@ -89,18 +90,21 @@ public class UserForm extends BaseForm {
 	private String lastLoginIP;
 
 	/**
-	 * OldPassword of User
+	 * Old Password of User
 	 */
+	@NotEmpty(message = "Old Password Can not be null")
 	private String oldPassword;
 
 	/**
-	 * NewPassword of User
+	 * New Password of User
 	 */
+	@NotEmpty(message = "New Password Can not be null")
 	private String newPassword;
 
 	/**
-	 * ConfirmPassword of User
+	 * Confirm Password of User
 	 */
+	@NotEmpty(message = "Confirm Password Can not be null")
 	private String confirmPassword;
 
 	public String getOldPassword() {

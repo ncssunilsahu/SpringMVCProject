@@ -21,6 +21,7 @@
 			<mvc:mapping path="/College/*" />
 			<mvc:mapping path="/Welcome" />
 			<mvc:mapping path="/Marksheet/*" />
+
 			<bean class="in.co.sunrays.proj1.interceptor.FrontController" />
 		</mvc:interceptor>
 	</mvc:interceptors>

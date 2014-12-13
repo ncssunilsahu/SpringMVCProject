@@ -87,6 +87,7 @@ public class LoginCtl extends BaseCtl {
 				System.out.println("in CollegeCtl SignIn operation");
 				dto = service.authenticate(dto);
 				System.out.println("id" + dto.getRoleId());
+				session.setAttribute("userId", dto.getId());
 				session.setAttribute("user", dto.getRoleId());
 				RoleDTO roleDTO = roleservice.findByPK(dto.getRoleId());
 				System.out.println("roleid" + roleDTO.getId());
