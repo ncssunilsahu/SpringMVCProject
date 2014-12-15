@@ -28,7 +28,7 @@
 
 	<mvc:resources mapping="/resources/**" location="/resources/" />
 
-	<context:component-scan base-package="in.co.sunrays.proj1.ctl" />
+	<context:component-scan base-package="in.co.sunrays.proj1" />
 
 
 	<import resource="jasper-views.xml" />
@@ -140,19 +140,20 @@
 		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
+<!-- <context:component-scan 
+  base-package="in.co.sunrays.proj1" /> -->
 
-
-	<bean id="collegeService" class="in.co.sunrays.proj1.service.CollegeServiceSpringImpl"></bean>
+	<!-- <bean id="collegeService" class="in.co.sunrays.proj1.service.CollegeServiceSpringImpl"></bean>
 	<bean id="studentService" class="in.co.sunrays.proj1.service.StudentServiceSpringImpl"></bean>
 	<bean id="userService" class="in.co.sunrays.proj1.service.UserServiceSpringImpl"></bean>
 	<bean id="roleService" class="in.co.sunrays.proj1.service.RoleServiceSpringImpl"></bean>
-	<bean id="marksheetService" class="in.co.sunrays.proj1.service.MarksheetServiceSpringImpl"></bean>
+	<bean id="marksheetService" class="in.co.sunrays.proj1.service.MarksheetServiceSpringImpl"></bean> -->
 
-	<bean id="collegeDAO" class="in.co.sunrays.proj1.dao.CollegeDAOHibImpl"></bean>
+	<!-- <bean id="collegeDAO" class="in.co.sunrays.proj1.dao.CollegeDAOHibImpl"></bean>
 	<bean id="studentDAO" class="in.co.sunrays.proj1.dao.StudentDAOHibImpl"></bean>
 	<bean id="userDAO" class="in.co.sunrays.proj1.dao.UserDAOHibImpl"></bean>
 	<bean id="roleDAO" class="in.co.sunrays.proj1.dao.RoleDAOHibImpl"></bean>
-	<bean id="marksheetDAO" class="in.co.sunrays.proj1.dao.MarksheetDAOHibImpl"></bean>
+	<bean id="marksheetDAO" class="in.co.sunrays.proj1.dao.MarksheetDAOHibImpl"></bean> -->
 
 
 </beans>
