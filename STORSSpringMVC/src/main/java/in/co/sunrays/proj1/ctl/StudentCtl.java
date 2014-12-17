@@ -197,7 +197,7 @@ public class StudentCtl extends BaseCtl {
 			e.printStackTrace();
 		}
 		form.setDtoList(list);
-		
+
 		System.out.println("form list size :" + form.getDtoList().size());
 		System.out.println("out StudentCtl.searchList()");
 		return new ModelAndView("StudentList", "form", form);

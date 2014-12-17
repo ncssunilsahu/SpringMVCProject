@@ -74,12 +74,12 @@ public class ChangePasswordCtl extends BaseCtl {
 	 */
 
 	@RequestMapping(value = "/ChangePassword/submit", method = RequestMethod.POST)
-	public ModelAndView doSubmit(@ModelAttribute("form")  @Valid UserForm form,BindingResult bindingResult,
+	public ModelAndView doSubmit(@ModelAttribute("form") @Valid UserForm form,
+			BindingResult bindingResult,
 			@RequestParam(required = false) Long id, String oldPassword,
-			String newPassword,HttpSession session) {
-		System.out.println("Session value :"
-				+ session.getAttribute("userId"));
-		id=(Long) session.getAttribute("userId");
+			String newPassword, HttpSession session) {
+		System.out.println("Session value :" + session.getAttribute("userId"));
+		id = (Long) session.getAttribute("userId");
 		System.out.println("In ChangePasswordCtl.doSubmit()");
 		System.out.println("id" + form.getId());
 		System.out.println("oldPassword" + oldPassword);
@@ -96,7 +96,7 @@ public class ChangePasswordCtl extends BaseCtl {
 					form.setMessage("Password Change Successfully");
 				} catch (RecordNotFoundException e) {
 					form.setMessage("Old Password not match.");
-				}catch (ApplicationException e) {
+				} catch (ApplicationException e) {
 					System.out.println("Critical Issue " + e);
 				}
 			}

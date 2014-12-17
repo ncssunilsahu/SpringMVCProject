@@ -3,7 +3,6 @@ package in.co.sunrays.proj1.ctl;
 import in.co.sunrays.proj1.dto.UserDTO;
 import in.co.sunrays.proj1.exception.ApplicationException;
 import in.co.sunrays.proj1.exception.DuplicateRecordException;
-import in.co.sunrays.proj1.form.LoginForm;
 import in.co.sunrays.proj1.form.RoleForm;
 import in.co.sunrays.proj1.form.UserForm;
 import in.co.sunrays.proj1.service.UserServiceInt;
@@ -26,6 +25,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -86,10 +86,10 @@ public class UserCtl extends BaseCtl {
 	 */
 
 	@RequestMapping(value = "/User/submit", method = RequestMethod.POST)
-	public ModelAndView doSubmit(@ModelAttribute("form") @Valid UserForm form,
+	public @ResponseBody ModelAndView doSubmit(
+			@ModelAttribute("form") @Valid UserForm form,
 			BindingResult bindingResult) {
 		System.out.println("In UserCtl.doSubmit()");
-		UserDTO dto = new UserDTO();
 
 		System.out.println("result Fail :" + bindingResult.hasErrors());
 
@@ -97,6 +97,7 @@ public class UserCtl extends BaseCtl {
 			System.out.println("Has Error");
 			return new ModelAndView("User", "form", form);
 		}
+		UserDTO dto = new UserDTO();
 
 		dto.setId(form.getId());
 		dto.setFirstName(form.getFirstName());
