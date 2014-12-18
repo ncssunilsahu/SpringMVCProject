@@ -4,11 +4,12 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<field name="id" class="java.lang.Long"/>
-	<field name="name" class="java.lang.String"/>
-	<field name="address" class="java.lang.String"/>
-	<field name="city" class="java.lang.String"/>
-	<field name="state" class="java.lang.String"/>
-	<field name="phoneNo" class="java.lang.String"/>
+	<field name="collegeName" class="java.lang.String"/>
+	<field name="firstName" class="java.lang.String"/>
+	<field name="lastName" class="java.lang.String"/>
+	<field name="dob" class="java.util.Date"/>
+	<field name="mobileNo" class="java.lang.String"/>
+	<field name="email" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -19,7 +20,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="13"/>
 				</textElement>
-				<text><![CDATA[College List]]></text>
+				<text><![CDATA[Student List]]></text>
 			</staticText>
 		</band>
 	</title>
@@ -42,7 +43,7 @@
 				<text><![CDATA[Id]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="25" y="0" width="95" height="16" uuid="fa3243a3-9218-42f2-9f56-496e53340b8d"/>
+				<reportElement x="25" y="0" width="76" height="16" uuid="fa3243a3-9218-42f2-9f56-496e53340b8d"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -52,10 +53,10 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<text><![CDATA[Name]]></text>
+				<text><![CDATA[College]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="120" y="0" width="133" height="16" uuid="22b6d194-7c20-4b15-9bce-23a671c461ae"/>
+				<reportElement x="101" y="0" width="89" height="16" uuid="22b6d194-7c20-4b15-9bce-23a671c461ae"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -65,10 +66,10 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<text><![CDATA[Address]]></text>
+				<text><![CDATA[First Name]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="253" y="0" width="81" height="16" uuid="5af5b14b-d4dc-4422-be80-c63b56cc6dcb"/>
+				<reportElement x="190" y="0" width="81" height="16" uuid="5af5b14b-d4dc-4422-be80-c63b56cc6dcb"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -78,10 +79,10 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<text><![CDATA[City]]></text>
+				<text><![CDATA[Last Name]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="334" y="0" width="92" height="16" uuid="3111cc47-98a2-43d3-8f12-cc7d4281be1c"/>
+				<reportElement x="271" y="0" width="92" height="16" uuid="3111cc47-98a2-43d3-8f12-cc7d4281be1c"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -91,10 +92,10 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<text><![CDATA[State]]></text>
+				<text><![CDATA[Date Of Birth]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="426" y="0" width="129" height="16" uuid="b640acac-87e1-4548-b171-03a0e38204d0"/>
+				<reportElement x="363" y="0" width="77" height="16" uuid="b640acac-87e1-4548-b171-03a0e38204d0"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -104,12 +105,25 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<text><![CDATA[Phone No]]></text>
+				<text><![CDATA[Mobile No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="440" y="0" width="115" height="16" uuid="b640acac-87e1-4548-b171-03a0e38204d0"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Email Id]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="16" splitType="Stretch">
+		<band height="17" splitType="Stretch">
 			<textField isBlankWhenNull="true">
 				<reportElement x="-13" y="0" width="38" height="16" uuid="aea79aa0-9131-4deb-96a4-da379e064590"/>
 				<box leftPadding="2">
@@ -124,7 +138,7 @@
 				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="25" y="0" width="95" height="16" uuid="2702518f-e81b-4f87-ae83-67cf5013d0b1"/>
+				<reportElement x="25" y="0" width="76" height="16" uuid="2702518f-e81b-4f87-ae83-67cf5013d0b1"/>
 				<box leftPadding="2">
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -134,10 +148,10 @@
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{collegeName}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-				<reportElement x="120" y="0" width="133" height="16" uuid="556ee9b9-8d2d-4ec1-8978-19768ad986ca"/>
+				<reportElement x="101" y="0" width="89" height="16" uuid="556ee9b9-8d2d-4ec1-8978-19768ad986ca"/>
 				<box leftPadding="2">
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -147,10 +161,10 @@
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{address}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{firstName}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="253" y="0" width="81" height="16" uuid="11247712-fbd4-405a-8840-48a6742a803a"/>
+				<reportElement x="190" y="0" width="81" height="16" uuid="11247712-fbd4-405a-8840-48a6742a803a"/>
 				<box leftPadding="2">
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -160,10 +174,10 @@
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{city}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{lastName}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="334" y="0" width="92" height="16" uuid="7872da7a-be18-4e43-8ac8-f5eadb6f9d14"/>
+				<reportElement x="271" y="1" width="92" height="15" uuid="7872da7a-be18-4e43-8ac8-f5eadb6f9d14"/>
 				<box leftPadding="2">
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -173,10 +187,10 @@
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{state}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{dob}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="426" y="0" width="129" height="16" uuid="08de6bc9-aa3e-4178-8fc2-23cce7a1cddc"/>
+				<reportElement x="363" y="0" width="77" height="16" uuid="08de6bc9-aa3e-4178-8fc2-23cce7a1cddc"/>
 				<box leftPadding="2">
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -186,7 +200,20 @@
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{phoneNo}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{mobileNo}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="440" y="0" width="115" height="16" uuid="08de6bc9-aa3e-4178-8fc2-23cce7a1cddc"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

@@ -50,6 +50,8 @@
 		<form:hidden path="pageSize" />
 		<input type="submit" value="Next" name="operation">
 		<input type="submit" value="Previous" name="operation">
+		<input type="submit" value="pdf" name="operation">
+		<input type="submit" value="Excel" name="operation">
 	</form:form>
 </body>
 </html>

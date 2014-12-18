@@ -31,6 +31,9 @@ public abstract class BaseCtl {
 	protected static final String OP_LOGOUT = "Logout";
 	protected static final String OP_GO = "Go";
 	protected static final String OP_GET = "Get";
+	protected static final String OP_PDF = "pdf";
+	protected static final String OP_EXCEL = "Excel";
+	
 	/**
 	 * List
 	 */

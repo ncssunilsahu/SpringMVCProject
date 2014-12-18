@@ -92,19 +92,19 @@ public class UserForm extends BaseForm {
 	/**
 	 * Old Password of User
 	 */
-//	@NotEmpty(message = "Old Password Can not be null")
+	@NotEmpty(message = "Old Password Can not be null")
 	private String oldPassword;
 
 	/**
 	 * New Password of User
 	 */
-	//@NotEmpty(message = "New Password Can not be null")
+	@NotEmpty(message = "New Password Can not be null")
 	private String newPassword;
 
 	/**
 	 * Confirm Password of User
 	 */
-//	@NotEmpty(message = "Confirm Password Can not be null")
+	@NotEmpty(message = "Confirm Password Can not be null")
 	private String confirmPassword;
 
 	public String getOldPassword() {

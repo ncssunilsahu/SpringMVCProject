@@ -146,7 +146,7 @@ public class StudentCtl extends BaseCtl {
 	@RequestMapping(value = "Student/search", method = { RequestMethod.GET,
 			RequestMethod.POST })
 	public ModelAndView searchList(@ModelAttribute("form") StudentForm form,
-			@RequestParam(required = false) Long id) {
+			@RequestParam(required = false) Long id, ModelAndView modelAndView) {
 		System.out.println("in userctl searchList method");
 		int pageNo = form.getPageNo();
 		int pageSize = form.getPageSize();
@@ -163,6 +163,41 @@ public class StudentCtl extends BaseCtl {
 			if (form.getFirstName() != null && form.getFirstName().length() > 0) {
 				dto.setFirstName(form.getFirstName());
 			}
+		} else if (OP_PDF.equalsIgnoreCase(form.getOperation())) {
+			Map<String, Object> parameterMap = new HashMap<String, Object>();
+			System.out.println("in pdf");
+			List usersList;
+			try {
+				usersList = service.list();
+				JRDataSource JRdataSource = new JRBeanCollectionDataSource(
+						usersList);
+				parameterMap.put("datasource", JRdataSource);
+				// pdfReport bean has ben declared in the jasper-views.xml file
+				modelAndView = new ModelAndView("StudentPdfReport", parameterMap);
+			} catch (ApplicationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return modelAndView;
+		}
+		
+		else if (OP_EXCEL.equalsIgnoreCase(form.getOperation())) {
+			Map<String, Object> parameterMap = new HashMap<String, Object>();
+
+			List usersList;
+			try {
+				usersList = service.list();
+				JRDataSource JRdataSource = new JRBeanCollectionDataSource(
+						usersList);
+				parameterMap.put("datasource", JRdataSource);
+				// pdfReport bean has ben declared in the jasper-views.xml file
+				modelAndView = new ModelAndView("StudentXlsReport", parameterMap);
+			} catch (ApplicationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return modelAndView;
+
 		}
 
 		if (OP_DELETE.equalsIgnoreCase(form.getOperation())) {
@@ -172,7 +207,7 @@ public class StudentCtl extends BaseCtl {
 			try {
 				service.delete(dto);
 				long ids = 0;
-				return searchList(form, ids);
+				return searchList(form, ids, modelAndView);
 
 			} catch (ApplicationException e) {
 				e.printStackTrace();

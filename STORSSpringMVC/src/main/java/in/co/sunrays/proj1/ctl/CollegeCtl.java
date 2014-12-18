@@ -5,12 +5,16 @@ import in.co.sunrays.proj1.exception.ApplicationException;
 import in.co.sunrays.proj1.exception.DuplicateRecordException;
 import in.co.sunrays.proj1.form.CollegeForm;
 import in.co.sunrays.proj1.service.CollegeServiceInt;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.validation.Valid;
+
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -138,7 +142,7 @@ public class CollegeCtl extends BaseCtl {
 	@RequestMapping(value = "College/search", method = { RequestMethod.GET,
 			RequestMethod.POST })
 	public ModelAndView searchList(@ModelAttribute("form") CollegeForm form,
-			@RequestParam(required = false) Long id) {
+			@RequestParam(required = false) Long id,ModelAndView modelAndView) {
 		System.out.println("in collegectl searchList method");
 		int pageNo = form.getPageNo();
 		int pageSize = form.getPageSize();
@@ -156,6 +160,42 @@ public class CollegeCtl extends BaseCtl {
 				dto.setName(form.getName());
 			}
 		}
+		
+		else if (OP_PDF.equalsIgnoreCase(form.getOperation())) {
+			Map<String, Object> parameterMap = new HashMap<String, Object>();
+			System.out.println("in pdf");
+			List usersList;
+			try {
+				usersList = service.list();
+				JRDataSource JRdataSource = new JRBeanCollectionDataSource(
+						usersList);
+				parameterMap.put("datasource", JRdataSource);
+				// pdfReport bean has ben declared in the jasper-views.xml file
+				modelAndView = new ModelAndView("pdfReport", parameterMap);
+			} catch (ApplicationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return modelAndView;
+		}
+		else if (OP_EXCEL.equalsIgnoreCase(form.getOperation())) {
+			Map<String, Object> parameterMap = new HashMap<String, Object>();
+
+			List usersList;
+			try {
+				usersList = service.list();
+				JRDataSource JRdataSource = new JRBeanCollectionDataSource(
+						usersList);
+				parameterMap.put("datasource", JRdataSource);
+				// pdfReport bean has ben declared in the jasper-views.xml file
+				modelAndView = new ModelAndView("xlsReport", parameterMap);
+			} catch (ApplicationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return modelAndView;
+
+		}
 
 		if (OP_DELETE.equalsIgnoreCase(form.getOperation())) {
 			System.out.println("in del op");
@@ -164,7 +204,7 @@ public class CollegeCtl extends BaseCtl {
 			try {
 				service.delete(dto);
 				long ids = 0;
-				return searchList(form, ids);
+				return searchList(form, ids,modelAndView);
 
 			} catch (ApplicationException e) {
 				e.printStackTrace();

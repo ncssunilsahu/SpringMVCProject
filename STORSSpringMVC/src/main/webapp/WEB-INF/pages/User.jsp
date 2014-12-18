@@ -14,37 +14,46 @@
 	font-weight: bold;
 }
 </style>
-<script type="text/javascript" >
-$('#userForm').submit(function(event) {       
-              var firstName = $('#firstName').val();
-              var lastName = $('#lastName').val();
-              var emailId = $('#emailId').val();
-              var password = $('#password').val();
-              var gender = $('#gender').val();
-              var dob = $('#dob').val();
-              var mobileNo = $('#mobileNo').val();
-              var json = { "firstName" : firstName, "lastName" : lastName, "emailId": emailId, "password": password, "gender": gender, "dob": dob, "mobileNo": mobileNo};
-              $.ajax({
-                url: 'User/submit',
-                data: JSON.stringify(json),
-                type: "POST",           
-                beforeSend: function(xhr) {
-                    xhr.setRequestHeader("Accept", "application/json");
-                    xhr.setRequestHeader("Content-Type", "application/json");
-                },
-                success: function(data){ 
-                       alert(data);
-                }
-            });
+<script type="text/javascript">
+	$('#userForm').submit(function(event) {
+		var firstName = $('#firstName').val();
+		var lastName = $('#lastName').val();
+		var emailId = $('#emailId').val();
+		var password = $('#password').val();
+		var gender = $('#gender').val();
+		var dob = $('#dob').val();
+		var mobileNo = $('#mobileNo').val();
+		var json = {
+			"firstName" : firstName,
+			"lastName" : lastName,
+			"emailId" : emailId,
+			"password" : password,
+			"gender" : gender,
+			"dob" : dob,
+			"mobileNo" : mobileNo
+		};
+		$.ajax({
+			url : 'User/submit',
+			data : JSON.stringify(json),
+			type : "POST",
+			beforeSend : function(xhr) {
+				xhr.setRequestHeader("Accept", "application/json");
+				xhr.setRequestHeader("Content-Type", "application/json");
+			},
+			success : function(data) {
+				alert(data);
+			}
+		});
 
-            event.preventDefault();
-          });
-          </script>
+		event.preventDefault();
+	});
+</script>
 </head>
 
 <body>
 	${form.message }
-	<form:form id="userForm" action="submit" method="post" commandName="form">
+	<form:form id="userForm" action="submit" method="post"
+		commandName="form">
 
 		<b>Add User</b>
 		<br>

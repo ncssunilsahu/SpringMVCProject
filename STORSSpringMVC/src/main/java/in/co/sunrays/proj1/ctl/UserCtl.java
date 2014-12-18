@@ -91,12 +91,6 @@ public class UserCtl extends BaseCtl {
 			BindingResult bindingResult) {
 		System.out.println("In UserCtl.doSubmit()");
 
-		System.out.println("result Fail :" + bindingResult.hasErrors());
-
-		if (bindingResult.hasErrors()) {
-			System.out.println("Has Error");
-			return new ModelAndView("User", "form", form);
-		}
 		UserDTO dto = new UserDTO();
 
 		dto.setId(form.getId());

@@ -6,7 +6,8 @@
 <head>
 <%@ page isELIgnored="false"%>
 </head>
-<title>Login Form</title>
+<title>Forget Password</title>
+<script type="text/javascript" src="../resources/cal/calendar.js"></script>
 <style>
 .error {
 	color: red;
@@ -20,9 +21,13 @@
 	${form.message }
 	<form:form action="submit" method="post" commandName="form">
 
-		<h1>Login</h1>
+		<b>Forget Password</b>
+		<br>
+		<br>
 
 		<table>
+			<form:hidden path="id" />
+
 			<tr>
 				<td><form:label path="emailId">
 						<spring:message code="label.emailId" />
@@ -30,21 +35,9 @@
 				<td><form:input path="emailId" /></td>
 				<td><form:errors path="emailId" cssClass="error" /></td>
 			</tr>
-			<tr>
-				<td><form:label path="password">
-						<spring:message code="label.password" />
-					</form:label></td>
-				<td><form:password path="password" /></td>
-				<td><form:errors path="password" cssClass="error" /></td>
-			</tr>
 
 		</table>
-		<input type="submit" value="SignIn" name="operation">
+		<input type="submit" value="Go" name="operation">
 	</form:form>
-	<input type="submit" value="Sign Up"
-		style="margin-left: 300px; margin-top: -63px"
-		onclick="location.href='/STORSSpringMVC/User/display'"
-		name="operation">
-	<a href="/STORSSpringMVC/ForgetPassword/display">ForgetPassword</a>
 </body>
 </html>

@@ -1,18 +1,13 @@
 package in.co.sunrays.proj1.ctl;
 
-import in.co.sunrays.proj1.dto.UserDTO;
-import in.co.sunrays.proj1.exception.ApplicationException;
-import in.co.sunrays.proj1.exception.DuplicateRecordException;
-import in.co.sunrays.proj1.exception.RecordNotFoundException;
-import in.co.sunrays.proj1.form.RoleForm;
-import in.co.sunrays.proj1.form.UserForm;
-import in.co.sunrays.proj1.service.UserServiceInt;
-
-import java.sql.Timestamp;
-import java.util.Date;
-
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+
+import in.co.sunrays.proj1.dto.UserDTO;
+import in.co.sunrays.proj1.exception.ApplicationException;
+import in.co.sunrays.proj1.exception.RecordNotFoundException;
+import in.co.sunrays.proj1.form.UserForm;
+import in.co.sunrays.proj1.service.UserServiceInt;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,32 +18,23 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-/**
- * ChangePassword functionality Controller. Performs operation
- * 
- * @version 1.0
- * @since 16 Nov 2014
- * @author SUNRAYS Developer
- * @Copyright (c) sunRays Technologies. All rights reserved.
- * @URL www.sunrays.co.in
- */
-
 @Controller
-public class ChangePasswordCtl extends BaseCtl {
+public class ForgetPasswordCtl extends BaseCtl {
 
 	@Autowired
 	private UserServiceInt service;
 
 	/**
-	 * Display User Page
+	 * Display Forget Password Page
 	 * 
 	 * @param id
 	 * @return
 	 */
 
-	@RequestMapping(value = "/ChangePassword/display", method = RequestMethod.GET)
+	@RequestMapping(value = "/ForgetPassword/display", method = RequestMethod.GET)
 	public ModelAndView doDisplay(@RequestParam(required = false) Long id) {
-		System.out.println("In ChangePasswordCtl.doDisplay()" + id);
+		// @RequestParam(value="0", required = false) Long id) {
+		System.out.println("In ForgetPasswordCtl.doDisplay()" + id);
 		UserForm form = new UserForm();
 		UserDTO dto = new UserDTO();
 		if (id != null && id > 0) {
@@ -61,37 +47,35 @@ public class ChangePasswordCtl extends BaseCtl {
 				form.setMessage("Critical issue : " + e.getMessage());
 			}
 		}
-		return new ModelAndView("ChangePassword", "form", form);
+		return new ModelAndView("ForgetPassword", "form", form);
 
 	}
 
 	/**
-	 * Perform ChangePassword Operation
+	 * Performs List and Search operation on UserList
 	 * 
 	 * @param form
-	 * @param bindingResult
 	 * @return
 	 */
 
-	@RequestMapping(value = "/ChangePassword/submit", method = RequestMethod.POST)
+	@RequestMapping(value = "/ForgetPassword/submit", method = RequestMethod.POST)
 	public ModelAndView doSubmit(@ModelAttribute("form") @Valid UserForm form,
 			BindingResult bindingResult,
-			@RequestParam(required = false) Long id, String oldPassword,
-			String newPassword, HttpSession session) {
-		System.out.println("Session value :" + session.getAttribute("userId"));
-		id = (Long) session.getAttribute("userId");
+			@RequestParam(required = false) Long id, String emailId) {
+
+		System.out.println("in ForgetPasswordctl searchList method");
 
 		try {
-			if (OP_SAVE.equalsIgnoreCase(form.getOperation())) {
+			if (OP_GO.equalsIgnoreCase(form.getOperation())) {
 
-				System.out.println("in ChangePasswordCtl add operation");
+				System.out.println("in ForgetPasswordCtl add operation");
 				try {
 
-					service.changePassword(id, oldPassword, newPassword);
+					service.forgetPassword(emailId);
 
-					form.setMessage("Password Change Successfully");
+					form.setMessage("Your password has been sent on ur Email.");
 				} catch (RecordNotFoundException e) {
-					form.setMessage("Old Password not match.");
+					form.setMessage("Login not exist");
 				} catch (ApplicationException e) {
 					System.out.println("Critical Issue " + e);
 				}
@@ -99,11 +83,11 @@ public class ChangePasswordCtl extends BaseCtl {
 
 		} catch (Exception e) {
 			System.out.println("Critical Issue " + e);
-			return new ModelAndView("ChangePassword", "form", form);
+			return new ModelAndView("ForgetPassword", "form", form);
 		}
 
-		System.out.println("out ChangePasswordCtl add operation");
-		return new ModelAndView("ChangePassword", "form", form);
+		System.out.println("out ForgetPasswordCtl add operation");
+		return new ModelAndView("ForgetPassword", "form", form);
 	}
 
 }
