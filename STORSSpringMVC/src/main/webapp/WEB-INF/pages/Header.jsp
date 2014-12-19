@@ -37,8 +37,15 @@
 									<a href="/STORSSpringMVC/ChangePassword/display"><b>Change
 											Password</b></a>
 									&emsp;
-									<a href="/STORSSpringMVC/resources/doc/index.html" target="_blank"><b>Java
-											Doc</b></a>
+									<a href="/STORSSpringMVC/resources/doc/index.html"
+										target="_blank"><b>Java Doc</b></a>
+									&emsp;
+									<a href="/STORSSpringMVC/FilePDF/display"><b>File PDF</b></a>
+									&emsp;
+									<a href="/STORSSpringMVC/FileExcel/display"><b>File
+											Excel</b></a>
+									&emsp;
+									<a href="/STORSSpringMVC/FileCSV/display"><b>File CSV</b></a>
 									&emsp;
 									<a href="/STORSSpringMVC/Login/logout?operation=Logout"><b>Logout</b></a>
 									<br>
@@ -55,8 +62,8 @@
 									<a href="/STORSSpringMVC/ChangePassword/display"><b>Change
 											Password</b></a>
 									&emsp;
-									<a href="/STORSSpringMVC/resources/doc/index.html" target="_blank"><b>Java
-											Doc</b></a>
+									<a href="/STORSSpringMVC/resources/doc/index.html"
+										target="_blank"><b>Java Doc</b></a>
 									&emsp;
 									<a href="/STORSSpringMVC/Login/logout?operation=Logout"><b>Logout</b></a>
 									<br>

@@ -67,8 +67,9 @@
 	<definition name="ChangePassword" extends="BaseLayout">
 		<put-attribute name="body" value="/WEB-INF/pages/ChangePassword.jsp" />
 	</definition>
-	
+
 	<definition name="ForgetPassword" extends="BaseLayout">
 		<put-attribute name="body" value="/WEB-INF/pages/ForgetPassword.jsp" />
 	</definition>
+
 </tiles-definitions>
