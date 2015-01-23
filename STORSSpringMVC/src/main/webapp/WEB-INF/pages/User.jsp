@@ -7,53 +7,69 @@
 <%@ page isELIgnored="false"%>
 </head>
 <title>User Form</title>
-<script type="text/javascript" src="../resources/cal/calendar.js"></script>
+<!-- <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script> -->
+
+ <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+  <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+  
+  <link href="runnable.css" rel="stylesheet" />
+  <!-- Load jQuery and the validate plugin -->
+  <script src="//code.jquery.com/jquery-1.9.1.js"></script>
+  <script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
+<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
 <style>
 .error {
 	color: red;
 	font-weight: bold;
 }
 </style>
-<script type="text/javascript">
-	$('#userForm').submit(function(event) {
-		var firstName = $('#firstName').val();
-		var lastName = $('#lastName').val();
-		var emailId = $('#emailId').val();
-		var password = $('#password').val();
-		var gender = $('#gender').val();
-		var dob = $('#dob').val();
-		var mobileNo = $('#mobileNo').val();
-		var json = {
-			"firstName" : firstName,
-			"lastName" : lastName,
-			"emailId" : emailId,
-			"password" : password,
-			"gender" : gender,
-			"dob" : dob,
-			"mobileNo" : mobileNo
-		};
-		$.ajax({
-			url : 'User/submit',
-			data : JSON.stringify(json),
-			type : "POST",
-			beforeSend : function(xhr) {
-				xhr.setRequestHeader("Accept", "application/json");
-				xhr.setRequestHeader("Content-Type", "application/json");
-			},
-			success : function(data) {
-				alert(data);
-			}
-		});
+<script>
+$(function() {
+  
+    // Setup form validation on the #register-form element
+    $("#userform").validate({
+    
+        // Specify the validation rules
+        rules: {
+        	firstName: "required",
+        	lastName: "required",
+        	emailId: {
+                required: true,
+                emailId: true
+            },
+            password: {
+                required: true,
+                minlength: 5
+            }
+        },
+        
+        // Specify the validation error messages
+        messages: {
+        	firstName: "Please enter your first name",
+        	lastName: "Please enter your last name",
+            password: {
+                required: "Please provide a password",
+                minlength: "Your password must be at least 5 characters long"
+            },
+            emailId: "Please enter a valid email address"
+        },
+        
+        submitHandler: function(form) {
+            form.submit();
+        }
+    });
 
-		event.preventDefault();
-	});
-</script>
+  });
+  
+  </script>
 </head>
 
 <body>
 	${form.message }
-	<form:form id="userForm" action="submit" method="post"
-		commandName="form">
+	<form:form action="submit" id="userform" method="post" commandName="form">
 
 		<b>Add User</b>
 		<br>
@@ -102,10 +118,7 @@
 				<td><form:label path="dob">
 						<spring:message code="label.dob" />
 					</form:label></td>
-				<td><form:input path="dob" readonly="true" /> <a
-					href="javascript:getCalendar(document.forms[0].dob);"> <img
-						src="../resources/images/cal.jpg" width="16" height="15"
-						border="0"></a></td>
+				<td><form:input path="dob" class="date-picker"  />  </td>
 				<td><form:errors path="dob" cssClass="error" /></td>
 			</tr>
 
@@ -121,5 +134,16 @@
 		<input type="submit" value="Save" name="operation">
 		<input type="reset" value="Reset">
 	</form:form>
+	<script>
+$(function() {
+    $('.date-picker').datepicker( {
+        changeMonth: true,
+        changeYear: true,
+        showButtonPanel: true,
+        dateFormat: 'dd/mm/yy',
+      
+    });
+});
+</script>
 </body>
 </html>
