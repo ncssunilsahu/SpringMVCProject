@@ -56,11 +56,6 @@
 	</bean>
 
 
-	<!-- Enables the Spring MVC @Controller programming model -->
-	<!-- for validation othervise bindresult.error is false in ctl -->
-	<mvc:annotation-driven />
-
-
 	<!-- for reading .properties file -->
 	<!-- define the message resources. -->
 	<bean id="messageSource"
