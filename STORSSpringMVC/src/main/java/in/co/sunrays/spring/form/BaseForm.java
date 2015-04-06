@@ -1,4 +1,4 @@
-package in.co.sunrays.form;
+package in.co.sunrays.spring.form;
 
 import java.util.List;
 

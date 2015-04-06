@@ -12,8 +12,16 @@
 	http://www.springframework.org/schema/mvc
     http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
 
+	<!-- Enable annotation-based wiring. Once it is configured, you can start 
+		annotating your code to indicate that Spring should automatically wire values 
+		into properties, methods, and constructors. -->
 	<context:annotation-config />
 
+	<!--Scan @Repository, @Service, @Component and @Controller spring beans -->
+	<context:component-scan base-package="in.co.sunrays" />
+
+	<!-- enable the configuration of transactional behavior based on annotations -->
+	<tx:annotation-driven transaction-manager="hibernateTransactionManager" />
 
 	<mvc:interceptors>
 		<mvc:interceptor>
@@ -23,23 +31,11 @@
 		</mvc:interceptor>
 	</mvc:interceptors>
 
-
-
-	<context:component-scan base-package="in.co.sunrays.proj1.ctl" />
-
-	<tx:annotation-driven transaction-manager="hibernateTransactionManager" />
 	<!-- without tiles <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"> 
 		<property name="prefix"> <value>/WEB-INF/pages/</value> </property> <property 
 		name="suffix"> <value>.jsp</value> </property> </bean> -->
 
-	<bean id="viewResolver"
-		class="org.springframework.web.servlet.view.UrlBasedViewResolver">
-		<property name="viewClass">
-			<value>
-				org.springframework.web.servlet.view.tiles2.TilesView
-			</value>
-		</property>
-	</bean>
+	<!-- Configure Tiles -->
 	<bean id="tilesConfigurer"
 		class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
 		<property name="definitions">
@@ -49,6 +45,15 @@
 		</property>
 	</bean>
 
+
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+		<property name="viewClass">
+			<value>
+				org.springframework.web.servlet.view.tiles2.TilesView
+			</value>
+		</property>
+	</bean>
 
 
 	<!-- Enables the Spring MVC @Controller programming model -->
@@ -81,21 +86,34 @@
 	</bean>
 
 
-
-
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver">
 		</property>
 		<property name="url" value="jdbc:mysql://localhost:3306/demomvc"></property>
 		<property name="username" value="root"></property>
-		<property name="password" value="root"></property>
+		<property name="password" value=""></property>
+	</bean>
+
+	<bean id="dataSourceC3P0" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<property name="driverClass" value="com.mysql.jdbc.Driver" />
+		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/demomvc" />
+		<property name="user" value="root" />
+		<property name="password" value="" />
+
+		<!-- these are C3P0 properties -->
+		<property name="acquireIncrement" value="5" />
+		<property name="minPoolSize" value="1" />
+		<property name="maxPoolSize" value="2" />
+		<property name="maxIdleTime" value="60" />
+
 	</bean>
 
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
 		<property name="dataSource">
-			<ref bean="dataSource" />
+			<ref bean="dataSourceC3P0" />
 		</property>
 		<property name="hibernateProperties">
 			<props>
@@ -108,7 +126,7 @@
 		</property>
 		<property name="annotatedClasses">
 			<list>
-				<value>in.co.sunrays.proj1.dto.CollegeDTO</value>
+				<value>in.co.sunrays.spring.dto.CollegeDTO</value>
 			</list>
 		</property>
 	</bean>
@@ -118,11 +136,5 @@
 		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
-
-
-	<bean id="collegeService" class="in.co.sunrays.proj1.service.CollegeServiceSpringImpl"></bean>
-
-	<bean id="collegeDAO" class="in.co.sunrays.proj1.dao.CollegeDAOHibImpl"></bean>
-
 
 </beans>

@@ -2,13 +2,13 @@
 <head>
 <%@ page isELIgnored="false"%>
 </head>
-<body>${form.message}
+<body>
 	${message}
 	<br>
 	<br>
-	<a href="/Test/College/display">College</a>
-	<a href="/Test/College/search">CollegeList</a>
-	<a href="/Test/Login/log?operation=Logout">Logout</a>
+	<a href="../College">College</a>
+	<a href="../College/search">College List</a>
+	<a href="./">Logout</a>
 </body>
 
 </html>

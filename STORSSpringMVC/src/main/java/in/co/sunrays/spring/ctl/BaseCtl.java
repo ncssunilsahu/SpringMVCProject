@@ -1,4 +1,4 @@
-package in.co.sunrays.proj1.ctl;
+package in.co.sunrays.spring.ctl;
 
 import java.util.List;
 

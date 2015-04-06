@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<a href="Login/display">Login</a>
+	<a href="Login">Login</a>
 	
 </body>
 </html>

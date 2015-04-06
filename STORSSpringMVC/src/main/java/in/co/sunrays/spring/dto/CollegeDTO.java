@@ -1,4 +1,4 @@
-package in.co.sunrays.proj1.dto;
+package in.co.sunrays.spring.dto;
 
 import java.sql.Timestamp;
 import java.util.Date;

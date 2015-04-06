@@ -1,8 +1,15 @@
 <%@taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <html>
 <head>
+<style>
+.error {
+	color: red;
+	font-weight: bold;
+}
+</style>
 </head>
 <body>
+
 	<table border="1" cellspacing="2" align="center" bordercolor="black">
 
 		<tr>

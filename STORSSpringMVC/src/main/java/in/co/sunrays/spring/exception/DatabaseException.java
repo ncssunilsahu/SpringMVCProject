@@ -1,4 +1,4 @@
-package in.co.sunrays.proj1.exception;
+package in.co.sunrays.spring.exception;
 
 /**
  * DatabaseException is propogated by DAO classes when an unhandled Database

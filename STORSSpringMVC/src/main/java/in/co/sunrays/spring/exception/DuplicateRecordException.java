@@ -1,4 +1,4 @@
-package in.co.sunrays.proj1.exception;
+package in.co.sunrays.spring.exception;
 
 /**
  * DuplicateRecordException thrown when a duplicate record occurred

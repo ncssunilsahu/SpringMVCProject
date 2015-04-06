@@ -1,8 +1,8 @@
-package in.co.sunrays.proj1.dao;
+package in.co.sunrays.spring.dao;
 
-import in.co.sunrays.proj1.dto.CollegeDTO;
-import in.co.sunrays.proj1.exception.ApplicationException;
-import in.co.sunrays.proj1.exception.DatabaseException;
+import in.co.sunrays.spring.dto.CollegeDTO;
+import in.co.sunrays.spring.exception.ApplicationException;
+import in.co.sunrays.spring.exception.DatabaseException;
 
 import java.util.List;
 
@@ -21,7 +21,7 @@ public interface CollegeDAOInt {
 	 * @param dto
 	 * @throws DatabaseException
 	 */
-	public long add(CollegeDTO dto) throws DatabaseException;
+	public long add(CollegeDTO dto);
 
 	/**
 	 * Update a College
@@ -29,7 +29,7 @@ public interface CollegeDAOInt {
 	 * @param dto
 	 * @throws DatabaseException
 	 */
-	public void update(CollegeDTO dto) throws DatabaseException;
+	public void update(CollegeDTO dto);
 
 	/**
 	 * Delete a College
@@ -37,7 +37,7 @@ public interface CollegeDAOInt {
 	 * @param dto
 	 * @throws DatabaseException
 	 */
-	public void delete(CollegeDTO dto) throws DatabaseException;
+	public void delete(CollegeDTO dto);
 
 	/**
 	 * Find College by Name
@@ -47,7 +47,7 @@ public interface CollegeDAOInt {
 	 * @return dto
 	 * @throws DatabaseException
 	 */
-	public CollegeDTO findByName(String name) throws DatabaseException;
+	public CollegeDTO findByName(String name);
 
 	/**
 	 * Find College by PK
@@ -57,27 +57,7 @@ public interface CollegeDAOInt {
 	 * @return dto
 	 * @throws DatabaseException
 	 */
-	public CollegeDTO findByPK(long pk) throws DatabaseException;
-
-	/**
-	 * Get List of Colleges
-	 * 
-	 * @return list : List of College
-	 * @throws DatabaseException
-	 */
-	public List list() throws DatabaseException;
-
-	/**
-	 * Get List of Colleges with pagination
-	 * 
-	 * @return list : List of College
-	 * @param pageNo
-	 *            : Current Page No.
-	 * @param pageSize
-	 *            : Size of Page
-	 * @throws DatabaseException
-	 */
-	public List list(int pageNo, int pageSize) throws DatabaseException;
+	public CollegeDTO findByPK(long pk);
 
 	/**
 	 * Search Colleges
@@ -87,7 +67,7 @@ public interface CollegeDAOInt {
 	 *            : Search Parameters
 	 * @throws DatabaseException
 	 */
-	public List search(CollegeDTO dto) throws DatabaseException;
+	public List search(CollegeDTO dto);
 
 	/**
 	 * Search Colleges with pagination
@@ -101,7 +81,6 @@ public interface CollegeDAOInt {
 	 *            : Size of Page
 	 * @throws DatabaseException
 	 */
-	public List search(CollegeDTO dto, int pageNo, int pageSize)
-			throws DatabaseException;
+	public List search(CollegeDTO dto, int pageNo, int pageSize);
 
 }

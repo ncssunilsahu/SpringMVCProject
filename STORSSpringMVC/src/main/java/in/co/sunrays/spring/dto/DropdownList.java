@@ -1,4 +1,4 @@
-package in.co.sunrays.proj1.dto;
+package in.co.sunrays.spring.dto;
 
 /**
  * DropdownList interface is implemented by DTOs those are used to create drop

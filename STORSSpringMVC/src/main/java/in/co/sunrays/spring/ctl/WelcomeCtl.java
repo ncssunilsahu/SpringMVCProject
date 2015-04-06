@@ -1,4 +1,4 @@
-package in.co.sunrays.proj1.ctl;
+package in.co.sunrays.spring.ctl;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
