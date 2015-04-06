@@ -15,6 +15,7 @@ import org.hibernate.annotations.Type;
 @Entity
 @Table(name = "st_college")
 @org.hibernate.annotations.Entity(dynamicInsert = true, dynamicUpdate = true)
+
 public class CollegeDTO {
 
 	/**
@@ -24,6 +25,7 @@ public class CollegeDTO {
 	@GenericGenerator(name = "generator", strategy = "increment")
 	@GeneratedValue(generator = "generator")
 	@Column(name = "ID", nullable = false, length = 20)
+	
 	protected long id = 0;
 	/**
 	 * Contains USER ID who created this database record
