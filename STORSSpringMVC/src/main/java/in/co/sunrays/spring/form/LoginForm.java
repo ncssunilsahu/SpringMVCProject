@@ -7,8 +7,10 @@ public class LoginForm extends BaseForm {
 
 	@Email(message = "Enter Valid EmailId")
 	private String emailId;
+
 	@NotEmpty(message = "Password Can not be null")
 	private String password;
+
 	private String message;
 
 	public String getEmailId() {
